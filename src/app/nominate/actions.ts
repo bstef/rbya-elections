@@ -47,7 +47,7 @@ export async function submitNomination(
     p_reasons: parsed.data.reasons,
     p_submitter_name: parsed.data.submitterName,
     p_submitter_email: parsed.data.submitterEmail,
-    p_pastor_contact: parsed.data.pastorContact || null,
+    p_pastor_contact: parsed.data.pastorContact || undefined,
   });
 
   if (error) {

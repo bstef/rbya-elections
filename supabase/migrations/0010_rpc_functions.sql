@@ -111,7 +111,7 @@ grant execute on function confirm_candidate to anon, authenticated;
 create or replace function get_candidate_by_token(p_token uuid)
 returns table (
   name text,
-  position position_enum,
+  "position" position_enum,
   church text,
   location text,
   submitter_name text,

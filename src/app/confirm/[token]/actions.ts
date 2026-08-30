@@ -17,7 +17,7 @@ export async function confirmCandidate(
   const { error } = await supabase.rpc("confirm_candidate", {
     p_token: token,
     p_accept: accept,
-    p_pastor_contact: pastorContact || null,
+    p_pastor_contact: pastorContact || undefined,
   });
 
   if (error) {

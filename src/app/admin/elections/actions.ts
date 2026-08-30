@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { messageForRpcError, POSITIONS } from "@/lib/constants";
+import { messageForRpcError, POSITIONS, type PositionValue } from "@/lib/constants";
+import type { TablesUpdate } from "@/lib/types/database.types";
 
 export type ActionState = {
   status: "idle" | "error" | "success";
@@ -76,7 +77,7 @@ export async function setCurrentElection(electionId: string): Promise<ActionStat
 
 export async function updateElection(
   electionId: string,
-  patch: Record<string, string | boolean>,
+  patch: TablesUpdate<"elections">,
 ): Promise<ActionState> {
   const supabase = await createClient();
   const { error } = await supabase.from("elections").update(patch).eq("id", electionId);
@@ -94,7 +95,7 @@ export async function updateElection(
 
 export async function updatePositionSeats(
   electionId: string,
-  position: string,
+  position: PositionValue,
   seats: number,
 ): Promise<ActionState> {
   const supabase = await createClient();
