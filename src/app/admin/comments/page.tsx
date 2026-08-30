@@ -1,0 +1,90 @@
+import { createClient } from "@/lib/supabase/server";
+import { getCurrentElection } from "@/lib/election/current-election";
+import { positionLabel } from "@/lib/constants";
+import { DeleteCommentButton } from "@/components/admin/DeleteCommentButton";
+import { Banner } from "@/components/ui/Card";
+import type { Candidate, Comment } from "@/lib/types/models";
+
+export default async function AdminCommentsPage() {
+  const election = await getCurrentElection();
+
+  if (!election) {
+    return <Banner tone="warning">No election is marked current.</Banner>;
+  }
+
+  const supabase = await createClient();
+  const { data: candidates } = await supabase
+    .from("candidates")
+    .select("*")
+    .eq("election_id", election.id);
+
+  const candidateById = new Map(
+    ((candidates ?? []) as Candidate[]).map((c) => [c.id, c]),
+  );
+  const candidateIds = Array.from(candidateById.keys());
+
+  const { data: comments } =
+    candidateIds.length > 0
+      ? await supabase
+          .from("comments")
+          .select("*")
+          .in("candidate_id", candidateIds)
+          .order("type", { ascending: true })
+          .order("created_at", { ascending: false })
+      : { data: [] as Comment[] };
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-slate-900">Comment Moderation</h1>
+        <p className="mt-1 text-slate-600">
+          Objections are never shown on the public site -- review them here
+          and prepare what should be read aloud at Convention before voting.
+        </p>
+      </div>
+
+      {(comments ?? []).length === 0 ? (
+        <p className="text-slate-600">No comments yet.</p>
+      ) : (
+        <div className="space-y-3">
+          {((comments ?? []) as Comment[]).map((comment) => {
+            const candidate = candidateById.get(comment.candidate_id);
+            return (
+              <div
+                key={comment.id}
+                className="rounded-lg border border-slate-200 bg-white p-4"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <span
+                      className={`mr-2 rounded-full px-2 py-0.5 text-xs font-medium ${
+                        comment.type === "negative"
+                          ? "bg-red-100 text-red-800"
+                          : "bg-emerald-100 text-emerald-800"
+                      }`}
+                    >
+                      {comment.type === "negative" ? "Objection" : "Support"}
+                    </span>
+                    <span className="font-medium text-slate-900">
+                      {candidate?.name ?? "Unknown candidate"}
+                    </span>
+                    {candidate && (
+                      <span className="ml-1 text-sm text-slate-500">
+                        ({positionLabel(candidate.position)})
+                      </span>
+                    )}
+                  </div>
+                  <DeleteCommentButton commentId={comment.id} />
+                </div>
+                <p className="mt-2 text-sm text-slate-700">{comment.content}</p>
+                <p className="mt-1 text-xs text-slate-500">
+                  {comment.submitter_name} &middot; {comment.submitter_email}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
