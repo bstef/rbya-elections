@@ -126,7 +126,11 @@ export type Database = {
           image_url: string | null
           location: string
           name: string
+          pastor_approval_token: string
+          pastor_approved: boolean | null
           pastor_contact: string | null
+          pastor_requested_at: string | null
+          pastor_responded_at: string | null
           position: Database["public"]["Enums"]["position_enum"]
           ready: boolean
           reasons: string
@@ -147,7 +151,11 @@ export type Database = {
           image_url?: string | null
           location: string
           name: string
+          pastor_approval_token?: string
+          pastor_approved?: boolean | null
           pastor_contact?: string | null
+          pastor_requested_at?: string | null
+          pastor_responded_at?: string | null
           position: Database["public"]["Enums"]["position_enum"]
           ready?: boolean
           reasons: string
@@ -168,7 +176,11 @@ export type Database = {
           image_url?: string | null
           location?: string
           name?: string
+          pastor_approval_token?: string
+          pastor_approved?: boolean | null
           pastor_contact?: string | null
+          pastor_requested_at?: string | null
+          pastor_responded_at?: string | null
           position?: Database["public"]["Enums"]["position_enum"]
           ready?: boolean
           reasons?: string
@@ -460,6 +472,35 @@ export type Database = {
           submitter_name: string
         }[]
       }
+      get_candidate_status: {
+        Args: { p_token: string }
+        Returns: {
+          accepted: boolean
+          church: string
+          confirmed_at: string
+          ignored: boolean
+          location: string
+          name: string
+          pastor_approved: boolean
+          pastor_requested_at: string
+          pastor_responded_at: string
+          position: Database["public"]["Enums"]["position_enum"]
+          positive_comment_count: number
+          ready: boolean
+        }[]
+      }
+      get_pastor_vetting_candidate: {
+        Args: { p_token: string }
+        Returns: {
+          church: string
+          location: string
+          name: string
+          pastor_approved: boolean
+          pastor_responded_at: string
+          position: Database["public"]["Enums"]["position_enum"]
+          submitter_name: string
+        }[]
+      }
       is_admin: { Args: never; Returns: boolean }
       is_verified_delegate: { Args: { p_email: string }; Returns: boolean }
       register_delegates: {
@@ -473,6 +514,14 @@ export type Database = {
           p_youth_leader_name: string
         }
         Returns: Database["public"]["Tables"]["delegates"]["Row"][]
+      }
+      request_pastor_vetting: {
+        Args: { p_candidate_id: string }
+        Returns: Database["public"]["Tables"]["candidates"]["Row"]
+      }
+      respond_pastor_vetting: {
+        Args: { p_approved: boolean; p_token: string }
+        Returns: Database["public"]["Tables"]["candidates"]["Row"]
       }
       set_current_election: {
         Args: { p_election_id: string }

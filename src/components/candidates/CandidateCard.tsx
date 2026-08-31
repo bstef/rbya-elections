@@ -29,6 +29,11 @@ export function CandidateCard({ candidate }: { candidate: Candidate }) {
       <p className="mt-1 text-sm text-ink-muted">
         {candidate.church} &middot; {candidate.location}
       </p>
+      {candidate.pastor_approved === true && (
+        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+          ✓ Pastor Vetted
+        </span>
+      )}
     </Link>
   );
 }

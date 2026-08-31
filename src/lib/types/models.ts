@@ -57,6 +57,10 @@ export interface Candidate {
   ready: boolean;
   ignored: boolean;
   created_at: string;
+  pastor_approval_token: string;
+  pastor_requested_at: string | null;
+  pastor_approved: boolean | null;
+  pastor_responded_at: string | null;
 }
 
 export type CandidateState =

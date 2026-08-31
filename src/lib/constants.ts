@@ -43,6 +43,9 @@ export const RPC_ERROR_MESSAGES: Record<string, string> = {
   results_not_published: "Results have not been published yet.",
   not_authorized: "You're not authorized to perform this action.",
   election_not_found: "We couldn't find that election.",
+  no_pastor_contact_on_file:
+    "There's no pastor/youth-leader email on file for this candidate yet.",
+  already_responded: "A response has already been recorded for this request.",
 };
 
 export function messageForRpcError(error: { message?: string } | null | undefined): string {

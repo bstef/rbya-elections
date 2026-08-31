@@ -40,9 +40,16 @@ export default async function CandidateDetailPage({
         <p className="mt-1 text-ink-muted">
           {typedCandidate.church} &middot; {typedCandidate.location}
         </p>
-        <span className="mt-2 inline-block rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
-          {CANDIDATE_STATE_LABELS[candidateState(typedCandidate)]}
-        </span>
+        <div className="mt-2 flex flex-wrap gap-2">
+          <span className="inline-block rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
+            {CANDIDATE_STATE_LABELS[candidateState(typedCandidate)]}
+          </span>
+          {typedCandidate.pastor_approved === true && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+              ✓ Pastor Vetted
+            </span>
+          )}
+        </div>
       </div>
 
       <section>

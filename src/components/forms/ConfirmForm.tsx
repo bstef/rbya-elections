@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { confirmCandidate, type ConfirmFormState } from "@/app/confirm/[token]/actions";
 import { Button } from "@/components/ui/Button";
 import { Input, Label } from "@/components/ui/Field";
@@ -19,7 +20,17 @@ export function ConfirmForm({ token }: { token: string }) {
   }
 
   if (result?.status === "success") {
-    return <Banner tone="success">{result.message}</Banner>;
+    return (
+      <div className="space-y-3">
+        <Banner tone="success">{result.message}</Banner>
+        <p className="text-sm text-ink-muted">
+          <Link href={`/status/${token}`} className="underline hover:text-ink">
+            Bookmark this link to check your candidacy status
+          </Link>{" "}
+          any time.
+        </p>
+      </div>
+    );
   }
 
   return (
