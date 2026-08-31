@@ -3,12 +3,14 @@ import { createClient } from "@/lib/supabase/server";
 import { positionLabel } from "@/lib/constants";
 import { Banner } from "@/components/ui/Card";
 import { ConfirmForm } from "@/components/forms/ConfirmForm";
+import { PhotoUploadField } from "@/components/forms/PhotoUploadField";
 
 interface CandidateLookup {
   name: string;
   position: string;
   church: string;
   location: string;
+  image_url: string | null;
   submitter_name: string;
   confirmed_at: string | null;
   accepted: boolean | null;
@@ -42,6 +44,15 @@ export default async function ConfirmPage({
         <p className="text-sm text-ink-muted">
           {candidate.church} &middot; {candidate.location}
         </p>
+      </div>
+
+      <div>
+        <h2 className="mb-2 font-semibold text-ink">Photo (optional)</h2>
+        <p className="mb-2 text-sm text-ink-muted">
+          Add a headshot so delegates recognize you on the ballot. You can also do
+          this later.
+        </p>
+        <PhotoUploadField token={token} name={candidate.name} initialImageUrl={candidate.image_url} />
       </div>
 
       {candidate.confirmed_at ? (

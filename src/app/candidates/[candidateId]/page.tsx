@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { positionLabel } from "@/lib/constants";
 import { candidateState, CANDIDATE_STATE_LABELS } from "@/lib/election/candidate-state";
 import { CommentForm } from "@/components/forms/CommentForm";
+import { Avatar } from "@/components/ui/Avatar";
 import type { Candidate, Comment } from "@/lib/types/models";
 
 export default async function CandidateDetailPage({
@@ -32,23 +33,26 @@ export default async function CandidateDetailPage({
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
-      <div>
-        <p className="text-sm font-medium text-ink-faint">
-          {positionLabel(typedCandidate.position)}
-        </p>
-        <h1 className="text-2xl font-bold text-ink font-display">{typedCandidate.name}</h1>
-        <p className="mt-1 text-ink-muted">
-          {typedCandidate.church} &middot; {typedCandidate.location}
-        </p>
-        <div className="mt-2 flex flex-wrap gap-2">
-          <span className="inline-block rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
-            {CANDIDATE_STATE_LABELS[candidateState(typedCandidate)]}
-          </span>
-          {typedCandidate.pastor_approved === true && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
-              ✓ Pastor Vetted
+      <div className="flex items-start gap-4">
+        <Avatar imageUrl={typedCandidate.image_url} name={typedCandidate.name} size={72} />
+        <div>
+          <p className="text-sm font-medium text-ink-faint">
+            {positionLabel(typedCandidate.position)}
+          </p>
+          <h1 className="text-2xl font-bold text-ink font-display">{typedCandidate.name}</h1>
+          <p className="mt-1 text-ink-muted">
+            {typedCandidate.church} &middot; {typedCandidate.location}
+          </p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <span className="inline-block rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
+              {CANDIDATE_STATE_LABELS[candidateState(typedCandidate)]}
             </span>
-          )}
+            {typedCandidate.pastor_approved === true && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+                ✓ Pastor Vetted
+              </span>
+            )}
+          </div>
         </div>
       </div>
 

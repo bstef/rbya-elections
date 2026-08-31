@@ -8,6 +8,8 @@ export type NominationFormState = {
   status: "idle" | "error" | "success";
   message?: string;
   fieldErrors?: Record<string, string>;
+  confirmToken?: string;
+  candidateName?: string;
 };
 
 export async function submitNomination(
@@ -37,7 +39,7 @@ export async function submitNomination(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.rpc("submit_nomination", {
+  const { data, error } = await supabase.rpc("submit_nomination", {
     p_position: parsed.data.position,
     p_name: parsed.data.name,
     p_church: parsed.data.church,
@@ -58,5 +60,7 @@ export async function submitNomination(
     status: "success",
     message:
       "Thank you! We've emailed the nominee a link to confirm. Once confirmed, they'll appear on the public candidates page.",
+    confirmToken: data?.confirm_token,
+    candidateName: data?.name,
   };
 }

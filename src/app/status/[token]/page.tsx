@@ -2,12 +2,14 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { positionLabel } from "@/lib/constants";
 import { Banner } from "@/components/ui/Card";
+import { PhotoUploadField } from "@/components/forms/PhotoUploadField";
 
 interface CandidateStatusLookup {
   name: string;
   position: string;
   church: string;
   location: string;
+  image_url: string | null;
   confirmed_at: string | null;
   accepted: boolean | null;
   ready: boolean;
@@ -48,6 +50,13 @@ export default async function CandidateStatusPage({
           This nomination has been removed by the election committee. Contact
           them if you believe this is a mistake.
         </Banner>
+      )}
+
+      {status.accepted && (
+        <div>
+          <h2 className="mb-2 font-semibold text-ink">Photo</h2>
+          <PhotoUploadField token={token} name={status.name} initialImageUrl={status.image_url} />
+        </div>
       )}
 
       <div className="space-y-3">

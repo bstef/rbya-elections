@@ -6,6 +6,7 @@ import { POSITIONS } from "@/lib/constants";
 import { Input, Textarea, Label, FieldError } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { Banner } from "@/components/ui/Card";
+import { PhotoUploadField } from "@/components/forms/PhotoUploadField";
 
 const initialState: NominationFormState = { status: "idle" };
 
@@ -13,7 +14,23 @@ export function NominationForm() {
   const [state, formAction, isPending] = useActionState(submitNomination, initialState);
 
   if (state.status === "success") {
-    return <Banner tone="success">{state.message}</Banner>;
+    return (
+      <div className="space-y-6">
+        <Banner tone="success">{state.message}</Banner>
+        {state.confirmToken && (
+          <div>
+            <h2 className="mb-2 font-semibold text-ink">
+              Add a photo of {state.candidateName ?? "the nominee"} (optional)
+            </h2>
+            <p className="mb-2 text-sm text-ink-muted">
+              If you have a good headshot handy, add it now so it&apos;s ready once
+              they confirm. They can also add or change it themselves.
+            </p>
+            <PhotoUploadField token={state.confirmToken} name={state.candidateName} />
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (

@@ -466,6 +466,7 @@ export type Database = {
           accepted: boolean
           church: string
           confirmed_at: string
+          image_url: string
           location: string
           name: string
           position: Database["public"]["Enums"]["position_enum"]
@@ -479,6 +480,7 @@ export type Database = {
           church: string
           confirmed_at: string
           ignored: boolean
+          image_url: string
           location: string
           name: string
           pastor_approved: boolean
@@ -521,6 +523,10 @@ export type Database = {
       }
       respond_pastor_vetting: {
         Args: { p_approved: boolean; p_token: string }
+        Returns: Database["public"]["Tables"]["candidates"]["Row"]
+      }
+      set_candidate_photo: {
+        Args: { p_image_url: string; p_token: string }
         Returns: Database["public"]["Tables"]["candidates"]["Row"]
       }
       set_current_election: {
