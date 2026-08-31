@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes, type TextareaHTMLAttributes, forwardRef } from "react";
 
 const fieldClasses =
-  "block w-full rounded-md border border-slate-300 px-3 py-2 text-sm shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500";
+  "block w-full rounded-md border border-hairline bg-surface text-ink placeholder:text-ink-faint px-3 py-2 text-sm shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500";
 
 export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
   ({ className = "", ...props }, ref) => (
@@ -28,9 +28,9 @@ export function Label({
   hint?: string;
 }) {
   return (
-    <label htmlFor={htmlFor} className="mb-1 block text-sm font-medium text-slate-800">
+    <label htmlFor={htmlFor} className="mb-1 block text-sm font-medium text-ink">
       {children}
-      {hint && <span className="ml-1 font-normal text-slate-500">{hint}</span>}
+      {hint && <span className="ml-1 font-normal text-ink-faint">{hint}</span>}
     </label>
   );
 }

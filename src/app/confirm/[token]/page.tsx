@@ -30,16 +30,16 @@ export default async function ConfirmPage({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Confirm Your Nomination</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">Confirm Your Nomination</h1>
+        <p className="mt-1 text-ink-muted">
           {candidate.submitter_name} nominated you for{" "}
           <strong>{positionLabel(candidate.position)}</strong>.
         </p>
       </div>
 
-      <div className="rounded-lg border border-slate-200 bg-white p-4">
-        <p className="font-semibold text-slate-900">{candidate.name}</p>
-        <p className="text-sm text-slate-600">
+      <div className="rounded-lg border border-hairline bg-surface p-4">
+        <p className="font-semibold text-ink">{candidate.name}</p>
+        <p className="text-sm text-ink-muted">
           {candidate.church} &middot; {candidate.location}
         </p>
       </div>

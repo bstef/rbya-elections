@@ -23,8 +23,8 @@ export default async function AdminChurchesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Churches</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">Churches</h1>
+        <p className="mt-1 text-ink-muted">
           Youth counts drive each church&apos;s delegate quota (1 per 10 youth,
           rounded up) for the current election.
         </p>
@@ -41,11 +41,11 @@ export default async function AdminChurchesPage() {
         {((churches ?? []) as Church[]).map((church) => (
           <div
             key={church.id}
-            className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-hairline bg-surface p-4"
           >
             <div>
-              <p className="font-medium text-slate-900">{church.name}</p>
-              <p className="text-sm text-slate-500">{church.city_state}</p>
+              <p className="font-medium text-ink">{church.name}</p>
+              <p className="text-sm text-ink-faint">{church.city_state}</p>
             </div>
             {election && (
               <YouthCountInput
@@ -59,7 +59,7 @@ export default async function AdminChurchesPage() {
       </div>
 
       <div>
-        <h2 className="mb-3 text-lg font-semibold text-slate-900">Add a church</h2>
+        <h2 className="mb-3 text-lg font-semibold text-ink">Add a church</h2>
         <CreateChurchForm />
       </div>
     </div>

@@ -36,7 +36,7 @@ export default async function AdminLayout({
           <Link
             key={link.href}
             href={link.href}
-            className="whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+            className="whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-ink-muted hover:bg-surface-muted"
           >
             {link.label}
           </Link>

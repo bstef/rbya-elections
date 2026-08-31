@@ -81,7 +81,7 @@ export function EditElectionForm({
               id="status"
               value={status}
               onChange={(e) => setStatus(e.target.value as ElectionStatus)}
-              className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="block w-full rounded-md border border-hairline bg-surface text-ink px-3 py-2 text-sm"
             >
               {STATUSES.map((s) => (
                 <option key={s} value={s}>
@@ -164,7 +164,7 @@ export function EditElectionForm({
           </div>
         </div>
 
-        <label className="flex items-center gap-2 text-sm text-slate-700">
+        <label className="flex items-center gap-2 text-sm text-ink-muted">
           <input
             type="checkbox"
             checked={resultsPublished}
@@ -179,7 +179,7 @@ export function EditElectionForm({
       </form>
 
       <div>
-        <h2 className="mb-3 text-lg font-semibold text-slate-900">Seats per position</h2>
+        <h2 className="mb-3 text-lg font-semibold text-ink">Seats per position</h2>
         <div className="space-y-2">
           {positions.map((position) => (
             <SeatsRow key={position.position} electionId={election.id} position={position} />
@@ -201,8 +201,8 @@ function SeatsRow({
   const [isPending, startTransition] = useTransition();
 
   return (
-    <div className="flex items-center justify-between gap-3 rounded-md border border-slate-200 p-3">
-      <span className="text-sm font-medium text-slate-800">
+    <div className="flex items-center justify-between gap-3 rounded-md border border-hairline p-3">
+      <span className="text-sm font-medium text-ink">
         {positionLabel(position.position)}
       </span>
       <div className="flex items-center gap-2">

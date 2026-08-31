@@ -33,40 +33,40 @@ export default async function CandidateDetailPage({
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
-        <p className="text-sm font-medium text-slate-500">
+        <p className="text-sm font-medium text-ink-faint">
           {positionLabel(typedCandidate.position)}
         </p>
-        <h1 className="text-2xl font-bold text-slate-900">{typedCandidate.name}</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">{typedCandidate.name}</h1>
+        <p className="mt-1 text-ink-muted">
           {typedCandidate.church} &middot; {typedCandidate.location}
         </p>
-        <span className="mt-2 inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
+        <span className="mt-2 inline-block rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
           {CANDIDATE_STATE_LABELS[candidateState(typedCandidate)]}
         </span>
       </div>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-900">Background</h2>
-        <p className="whitespace-pre-wrap text-slate-700">{typedCandidate.background}</p>
+        <h2 className="mb-2 font-semibold text-ink">Background</h2>
+        <p className="whitespace-pre-wrap text-ink-muted">{typedCandidate.background}</p>
       </section>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-900">Reasons for nomination</h2>
-        <p className="whitespace-pre-wrap text-slate-700">{typedCandidate.reasons}</p>
+        <h2 className="mb-2 font-semibold text-ink">Reasons for nomination</h2>
+        <p className="whitespace-pre-wrap text-ink-muted">{typedCandidate.reasons}</p>
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-slate-900">
+        <h2 className="mb-3 font-semibold text-ink">
           Notes of support ({typedComments.length})
         </h2>
         {typedComments.length === 0 ? (
-          <p className="text-sm text-slate-500">No public comments yet.</p>
+          <p className="text-sm text-ink-faint">No public comments yet.</p>
         ) : (
           <ul className="space-y-3">
             {typedComments.map((comment) => (
-              <li key={comment.id} className="rounded-md border border-slate-200 p-3">
-                <p className="text-sm text-slate-700">{comment.content}</p>
-                <p className="mt-1 text-xs text-slate-500">- {comment.submitter_name}</p>
+              <li key={comment.id} className="rounded-md border border-hairline p-3">
+                <p className="text-sm text-ink-muted">{comment.content}</p>
+                <p className="mt-1 text-xs text-ink-faint">- {comment.submitter_name}</p>
               </li>
             ))}
           </ul>
@@ -74,8 +74,8 @@ export default async function CandidateDetailPage({
       </section>
 
       <section>
-        <h2 className="mb-3 font-semibold text-slate-900">Leave a comment</h2>
-        <p className="mb-3 text-sm text-slate-600">
+        <h2 className="mb-3 font-semibold text-ink">Leave a comment</h2>
+        <p className="mb-3 text-sm text-ink-muted">
           Notes of support are shown publicly and may mark this candidate as
           seconded. Objections are never shown online -- they are reviewed by
           the election committee and may be read aloud at Convention before

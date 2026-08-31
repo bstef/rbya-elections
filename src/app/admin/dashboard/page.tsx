@@ -42,8 +42,8 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">{election.year} Dashboard</h1>
-        <p className="mt-1 text-slate-600">Status: {election.status.replace(/_/g, " ")}</p>
+        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Dashboard</h1>
+        <p className="mt-1 text-ink-muted">Status: {election.status.replace(/_/g, " ")}</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -69,8 +69,8 @@ function StatCard({ label, value, href }: { label: string; value: number; href: 
   return (
     <Link href={href}>
       <Card className="transition-shadow hover:shadow-md">
-        <p className="text-sm text-slate-500">{label}</p>
-        <p className="mt-1 text-3xl font-bold text-slate-900">{value}</p>
+        <p className="text-sm text-ink-faint">{label}</p>
+        <p className="mt-1 text-3xl font-bold text-ink">{value}</p>
       </Card>
     </Link>
   );

@@ -2,16 +2,16 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">How RBYA Elections Work</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">How RBYA Elections Work</h1>
+        <p className="mt-1 text-ink-muted">
           A summary of the process, for transparency. This app enforces these
           rules in its logic, not just in this page&apos;s copy.
         </p>
       </div>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-900">Nominations</h2>
-        <p className="text-slate-700">
+        <h2 className="mb-2 font-semibold text-ink">Nominations</h2>
+        <p className="text-ink-muted">
           Anyone can nominate an RBYA member for a committee position. The
           nomination window opens well ahead of Convention and closes 48
           hours beforehand. The nominee then has until that same 48-hour
@@ -21,8 +21,8 @@ export default function AboutPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-900">Comments</h2>
-        <p className="text-slate-700">
+        <h2 className="mb-2 font-semibold text-ink">Comments</h2>
+        <p className="text-ink-muted">
           Anyone can leave a note of support (&ldquo;seconding&rdquo;) for a candidate,
           which is shown publicly. Objections can also be submitted, but they
           are never shown online -- they&apos;re reviewed by the election
@@ -32,8 +32,8 @@ export default function AboutPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-900">Delegates</h2>
-        <p className="text-slate-700">
+        <h2 className="mb-2 font-semibold text-ink">Delegates</h2>
+        <p className="text-ink-muted">
           Each affiliated church may register one delegate for every ten
           youth (rounding up for the remainder) -- a &ldquo;youth&rdquo; being any person
           under 40, baptized, active in the church&apos;s youth activities,
@@ -44,8 +44,8 @@ export default function AboutPage() {
       </section>
 
       <section>
-        <h2 className="mb-2 font-semibold text-slate-900">Voting</h2>
-        <p className="text-slate-700">
+        <h2 className="mb-2 font-semibold text-ink">Voting</h2>
+        <p className="text-ink-muted">
           Delegates present at Convention can vote on candidates. Delegates
           voting by absentee ballot may only vote for committee candidates,
           not on other Convention business, and must submit before the

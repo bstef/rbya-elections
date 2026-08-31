@@ -27,7 +27,7 @@ export function YouthCountInput({
         onChange={(e) => setCount(Number(e.target.value))}
         className="w-20"
       />
-      <span className="whitespace-nowrap text-xs text-slate-500">
+      <span className="whitespace-nowrap text-xs text-ink-faint">
         {delegateQuota(count)} delegate{delegateQuota(count) === 1 ? "" : "s"}
       </span>
       <Button

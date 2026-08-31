@@ -64,7 +64,7 @@ export function DelegateRegistrationForm() {
       {result?.status === "error" && <Banner tone="error">{result.message}</Banner>}
 
       <fieldset className="space-y-4">
-        <legend className="mb-1 font-semibold text-slate-900">Church information</legend>
+        <legend className="mb-1 font-semibold text-ink">Church information</legend>
         <div>
           <Label htmlFor="churchName">Church name</Label>
           <Input
@@ -104,7 +104,7 @@ export function DelegateRegistrationForm() {
       </fieldset>
 
       <fieldset className="space-y-4">
-        <legend className="mb-1 font-semibold text-slate-900">Submitted by</legend>
+        <legend className="mb-1 font-semibold text-ink">Submitted by</legend>
         <div>
           <Label htmlFor="registeredByName">Your name</Label>
           <Input
@@ -127,12 +127,12 @@ export function DelegateRegistrationForm() {
       </fieldset>
 
       <fieldset className="space-y-4">
-        <legend className="mb-1 font-semibold text-slate-900">Delegates</legend>
+        <legend className="mb-1 font-semibold text-ink">Delegates</legend>
         <div className="space-y-3">
           {delegates.map((delegate, index) => (
             <div
               key={index}
-              className="grid grid-cols-1 gap-2 rounded-md border border-slate-200 p-3 sm:grid-cols-[1fr_1fr_auto_auto]"
+              className="grid grid-cols-1 gap-2 rounded-md border border-hairline p-3 sm:grid-cols-[1fr_1fr_auto_auto]"
             >
               <Input
                 placeholder="Full name"
@@ -154,7 +154,7 @@ export function DelegateRegistrationForm() {
                     delegateType: e.target.value as "present" | "absentee",
                   })
                 }
-                className="rounded-md border border-slate-300 px-2 py-2 text-sm"
+                className="rounded-md border border-hairline bg-surface text-ink px-2 py-2 text-sm"
               >
                 <option value="present">Present</option>
                 <option value="absentee">Absentee</option>

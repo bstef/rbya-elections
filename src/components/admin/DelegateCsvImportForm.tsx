@@ -42,7 +42,7 @@ export function DelegateCsvImportForm({
           id="church"
           value={churchId}
           onChange={(e) => setChurchId(e.target.value)}
-          className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="block w-full rounded-md border border-hairline bg-surface text-ink px-3 py-2 text-sm"
         >
           {churches.map((church) => (
             <option key={church.id} value={church.id}>

@@ -10,8 +10,8 @@ export default async function NominatePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Nominate a Candidate</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">Nominate a Candidate</h1>
+        <p className="mt-1 text-ink-muted">
           Anyone can nominate an RBYA member for a committee position. The
           nominee will receive an email to confirm before appearing publicly.
         </p>

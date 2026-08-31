@@ -29,7 +29,7 @@ export function CommentForm({ candidateId }: { candidateId: string }) {
           id="type"
           name="type"
           defaultValue="positive"
-          className="block w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="block w-full rounded-md border border-hairline bg-surface text-ink px-3 py-2 text-sm"
         >
           <option value="positive">Note of support (seconding)</option>
           <option value="negative">Objection (never shown publicly)</option>

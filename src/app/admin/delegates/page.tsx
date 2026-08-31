@@ -40,16 +40,16 @@ export default async function AdminDelegatesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">{election.year} Delegates</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Delegates</h1>
+        <p className="mt-1 text-ink-muted">
           Only verified delegates can log in and vote. Verify a church&apos;s
           submission after confirming it with them.
         </p>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
-        <table className="min-w-full divide-y divide-slate-200 text-sm">
-          <thead className="bg-slate-50 text-left text-slate-500">
+      <div className="overflow-x-auto rounded-lg border border-hairline bg-surface">
+        <table className="min-w-full divide-y divide-hairline text-sm">
+          <thead className="bg-page text-left text-ink-faint">
             <tr>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Email</th>
@@ -59,18 +59,18 @@ export default async function AdminDelegatesPage() {
               <th className="px-4 py-2" />
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-hairline">
             {((delegates ?? []) as Delegate[]).map((delegate) => {
               const church = churchById.get(delegate.church_id);
               const quota = quotaByChurch.get(delegate.church_id);
               const registered = registeredCountByChurch.get(delegate.church_id) ?? 0;
               return (
                 <tr key={delegate.id}>
-                  <td className="px-4 py-2 font-medium text-slate-900">{delegate.name}</td>
-                  <td className="px-4 py-2 text-slate-700">{delegate.email}</td>
-                  <td className="px-4 py-2 text-slate-700">{church?.name ?? "Unknown"}</td>
-                  <td className="px-4 py-2 text-slate-700">{delegate.delegate_type}</td>
-                  <td className="px-4 py-2 text-slate-700">
+                  <td className="px-4 py-2 font-medium text-ink">{delegate.name}</td>
+                  <td className="px-4 py-2 text-ink-muted">{delegate.email}</td>
+                  <td className="px-4 py-2 text-ink-muted">{church?.name ?? "Unknown"}</td>
+                  <td className="px-4 py-2 text-ink-muted">{delegate.delegate_type}</td>
+                  <td className="px-4 py-2 text-ink-muted">
                     {quota !== undefined ? `${registered} / ${quota}` : `${registered} / ?`}
                   </td>
                   <td className="px-4 py-2">
@@ -84,7 +84,7 @@ export default async function AdminDelegatesPage() {
       </div>
 
       <div>
-        <h2 className="mb-3 text-lg font-semibold text-slate-900">
+        <h2 className="mb-3 text-lg font-semibold text-ink">
           Import delegates (committee-entered, auto-verified)
         </h2>
         <DelegateCsvImportForm electionId={election.id} churches={(churches ?? []) as Church[]} />

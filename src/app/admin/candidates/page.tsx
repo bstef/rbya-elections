@@ -26,17 +26,17 @@ export default async function AdminCandidatesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">{election.year} Candidates</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Candidates</h1>
+        <p className="mt-1 text-ink-muted">
           Ignoring a candidate removes them from the public list, the ballot,
           and results -- use it for withdrawals or duplicate/invalid
           submissions.
         </p>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
-        <table className="min-w-full divide-y divide-slate-200 text-sm">
-          <thead className="bg-slate-50 text-left text-slate-500">
+      <div className="overflow-x-auto rounded-lg border border-hairline bg-surface">
+        <table className="min-w-full divide-y divide-hairline text-sm">
+          <thead className="bg-page text-left text-ink-faint">
             <tr>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Position</th>
@@ -45,15 +45,15 @@ export default async function AdminCandidatesPage() {
               <th className="px-4 py-2" />
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-hairline">
             {typed.map((candidate) => (
               <tr key={candidate.id}>
-                <td className="px-4 py-2 font-medium text-slate-900">{candidate.name}</td>
-                <td className="px-4 py-2 text-slate-700">
+                <td className="px-4 py-2 font-medium text-ink">{candidate.name}</td>
+                <td className="px-4 py-2 text-ink-muted">
                   {positionLabel(candidate.position)}
                 </td>
-                <td className="px-4 py-2 text-slate-700">{candidate.church}</td>
-                <td className="px-4 py-2 text-slate-700">
+                <td className="px-4 py-2 text-ink-muted">{candidate.church}</td>
+                <td className="px-4 py-2 text-ink-muted">
                   {CANDIDATE_STATE_LABELS[candidateState(candidate)]}
                 </td>
                 <td className="px-4 py-2">

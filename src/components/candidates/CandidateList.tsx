@@ -19,7 +19,7 @@ export function CandidateList({ candidates }: { candidates: Candidate[] }) {
 
   if (groups.length === 0) {
     return (
-      <p className="text-slate-600">
+      <p className="text-ink-muted">
         No candidates have been confirmed for this election yet.
       </p>
     );
@@ -29,7 +29,7 @@ export function CandidateList({ candidates }: { candidates: Candidate[] }) {
     <div className="space-y-8">
       {groups.map((group) => (
         <section key={group.value}>
-          <h2 className="mb-3 text-lg font-semibold text-slate-900">{group.label}</h2>
+          <h2 className="mb-3 text-lg font-semibold text-ink">{group.label}</h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {group.candidates.map((candidate) => (
               <CandidateCard key={candidate.id} candidate={candidate} />

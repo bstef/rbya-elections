@@ -3,12 +3,15 @@ import { type ButtonHTMLAttributes, forwardRef } from "react";
 type Variant = "primary" | "secondary" | "danger" | "ghost";
 
 const variantClasses: Record<Variant, string> = {
+  // Inverts to a light pill in dark mode -- without this, bg-slate-900
+  // matches the dark-mode surface color exactly and the button disappears.
   primary:
-    "bg-slate-900 text-white hover:bg-slate-700 disabled:bg-slate-300",
+    "bg-slate-900 text-white hover:bg-slate-700 disabled:bg-slate-300 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300 dark:disabled:bg-slate-700",
   secondary:
-    "bg-white text-slate-900 border border-slate-300 hover:bg-slate-50 disabled:text-slate-400",
-  danger: "bg-red-600 text-white hover:bg-red-500 disabled:bg-red-200",
-  ghost: "bg-transparent text-slate-700 hover:bg-slate-100 disabled:text-slate-300",
+    "bg-surface text-ink border border-hairline hover:bg-page disabled:text-ink-faint",
+  danger:
+    "bg-red-600 text-white hover:bg-red-500 disabled:bg-red-200 dark:disabled:bg-red-900",
+  ghost: "bg-transparent text-ink-muted hover:bg-surface-muted disabled:text-ink-faint",
 };
 
 export const Button = forwardRef<

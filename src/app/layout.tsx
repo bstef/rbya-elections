@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
@@ -14,6 +14,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
+});
+
 export const metadata: Metadata = {
   title: "RBYA Elections",
   description: "Nominations, delegate registration, and voting for RBYA committee elections.",
@@ -23,9 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-slate-50 text-slate-900">
+      <body className="flex min-h-full flex-col">
         <SiteHeader />
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
         <SiteFooter />

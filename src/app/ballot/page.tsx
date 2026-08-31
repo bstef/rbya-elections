@@ -50,8 +50,8 @@ export default async function BallotPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">{election.year} Ballot</h1>
-        <p className="mt-1 text-slate-600">
+        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Ballot</h1>
+        <p className="mt-1 text-ink-muted">
           Welcome, {delegate.name}. Vote for each position below; each
           position can only be submitted once, and you may leave a position
           blank to abstain.

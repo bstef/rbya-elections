@@ -36,7 +36,7 @@ export function BallotForm({
 
   if (groups.length === 0) {
     return (
-      <p className="text-slate-600">
+      <p className="text-ink-muted">
         No accepted candidates are on the ballot for this election yet.
       </p>
     );
@@ -95,10 +95,10 @@ function PositionBallot({
   const voted = alreadyVoted || result?.status === "success";
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-4">
+    <div className="rounded-lg border border-hairline bg-surface p-4">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="font-semibold text-slate-900">{label}</h2>
-        <span className="text-xs text-slate-500">
+        <h2 className="font-semibold text-ink">{label}</h2>
+        <span className="text-xs text-ink-faint">
           {seats === 1 ? "Choose 1, or leave blank to abstain" : `Choose up to ${seats}`}
         </span>
       </div>
@@ -118,7 +118,7 @@ function PositionBallot({
             {candidates.map((candidate) => (
               <label
                 key={candidate.id}
-                className="flex items-center gap-2 rounded-md border border-slate-200 p-2 text-sm"
+                className="flex items-center gap-2 rounded-md border border-hairline p-2 text-sm"
               >
                 <input
                   type={isSingleSeat ? "radio" : "checkbox"}
@@ -133,7 +133,7 @@ function PositionBallot({
                 />
                 <span>
                   {candidate.name}{" "}
-                  <span className="text-slate-500">({candidate.church})</span>
+                  <span className="text-ink-faint">({candidate.church})</span>
                 </span>
               </label>
             ))}

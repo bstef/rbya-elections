@@ -14,10 +14,10 @@ export default async function HomePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+        <h1 className="text-3xl font-bold tracking-tight text-ink font-display">
           RBYA Committee Elections
         </h1>
-        <p className="mt-2 text-slate-600">
+        <p className="mt-2 text-ink-muted">
           Nominate a candidate, register your church&apos;s delegates, and cast your
           ballot -- all in one place.
         </p>
@@ -110,14 +110,14 @@ function ActionCard({
   cta: string;
 }) {
   return (
-    <div className="flex flex-col justify-between rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="flex flex-col justify-between rounded-lg border border-hairline bg-surface p-6 shadow-sm">
       <div>
-        <h2 className="font-semibold text-slate-900">{title}</h2>
-        <p className="mt-1 text-sm text-slate-600">{description}</p>
+        <h2 className="font-semibold text-ink">{title}</h2>
+        <p className="mt-1 text-sm text-ink-muted">{description}</p>
       </div>
       <Link
         href={href}
-        className="mt-4 inline-flex w-fit items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50"
+        className="mt-4 inline-flex w-fit items-center justify-center rounded-md border border-hairline bg-surface px-4 py-2 text-sm font-medium text-ink hover:bg-page"
       >
         {cta}
       </Link>

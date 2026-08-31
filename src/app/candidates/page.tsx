@@ -27,10 +27,10 @@ export default async function CandidatesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-ink font-display">
           {election.year} Candidates
         </h1>
-        <p className="mt-1 text-slate-600">
+        <p className="mt-1 text-ink-muted">
           Candidates who have accepted their nomination, grouped by position.
         </p>
       </div>

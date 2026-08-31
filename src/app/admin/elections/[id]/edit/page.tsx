@@ -20,7 +20,7 @@ export default async function EditElectionPage({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-900">Edit {election.year} Election</h1>
+      <h1 className="text-2xl font-bold text-ink font-display">Edit {election.year} Election</h1>
       <EditElectionForm
         election={election as Election}
         positions={(positions ?? []) as ElectionPosition[]}
