@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const EXTERNAL_LINKS = [
   { href: "https://www.rbya.org/", label: "RBYA.org" },
@@ -13,7 +14,15 @@ export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-hairline bg-surface">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4 text-xs text-ink-faint">
-        <p className="font-display text-sm font-semibold text-ink">RBYA Elections</p>
+        <Link href="/" className="shrink-0 rounded-md bg-white p-1">
+          <Image
+            src="/rbyaelections.png"
+            alt="RBYA Elections"
+            width={1774}
+            height={887}
+            className="h-7 w-auto"
+          />
+        </Link>
 
         <nav className="flex flex-wrap items-center gap-x-4 gap-y-1">
           {EXTERNAL_LINKS.map((link) => (
