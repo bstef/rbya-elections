@@ -1,6 +1,25 @@
 @import "tailwindcss";
 
 /*
+ * Redefines Tailwind's `dark:` variant so it matches the same three states
+ * as the custom properties below: OS preference by default, overridden in
+ * either direction by an explicit data-theme attribute on <html> (set by
+ * ThemeToggle.tsx). Without this, `dark:` utility classes (buttons,
+ * badges, banners) would only ever follow the OS setting and drift out of
+ * sync with the manual toggle.
+ */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:not(:where([data-theme="light"], [data-theme="light"] *)) {
+      @slot;
+    }
+  }
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+}
+
+/*
  * Semantic color tokens. Components use these (bg-page, bg-surface,
  * text-ink, text-ink-muted, text-ink-faint, border-hairline) instead of
  * raw slate-* classes, so a single dark-mode override below re-themes the
@@ -31,8 +50,14 @@
   --font-display: var(--font-fraunces);
 }
 
+/*
+ * Three states: no data-theme attribute follows the OS setting (this
+ * media query); [data-theme="dark"]/[data-theme="light"] is an explicit
+ * choice from the header toggle (see ThemeToggle.tsx + the init script in
+ * layout.tsx) and wins over the OS setting in both directions.
+ */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --color-page: var(--color-slate-950);
     --color-surface: var(--color-slate-900);
     --color-surface-muted: var(--color-slate-800);
@@ -43,9 +68,27 @@
   }
 }
 
+:root[data-theme="dark"] {
+  --color-page: var(--color-slate-950);
+  --color-surface: var(--color-slate-900);
+  --color-surface-muted: var(--color-slate-800);
+  --color-ink: var(--color-slate-50);
+  --color-ink-muted: var(--color-slate-300);
+  --color-ink-faint: var(--color-slate-400);
+  --color-hairline: var(--color-slate-700);
+}
+
 :root {
   /* Lets native form controls, scrollbars, etc. follow the OS theme too. */
   color-scheme: light dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {

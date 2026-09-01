@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const NAV_LINKS = [
   { href: "/candidates", label: "Candidates" },
@@ -27,6 +28,7 @@ export function SiteHeader() {
           >
             Delegate Login
           </Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
