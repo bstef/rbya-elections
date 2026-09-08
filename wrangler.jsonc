@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rbya-elections",
+  "compatibility_date": "2026-09-08",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "main": "vinext/server/fetch-handler",
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS"
+  },
+  "cache": {
+    "enabled": true
+  },
+  "version_metadata": {
+    "binding": "CF_VERSION_METADATA"
+  },
+  // NEXT_PUBLIC_* vars are safe to commit -- they're bundled into client JS
+  // regardless. NEXT_PUBLIC_SITE_URL is set after the first deploy once the
+  // workers.dev (or custom) URL is known. SUPABASE_SERVICE_ROLE_KEY, if a
+  // future feature needs it, should go in via `wrangler secret put`, not here.
+  "vars": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://tvltzgpgmedjsxfxrvfn.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2bHR6Z3BnbWVkanN4ZnhydmZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMTU1NDksImV4cCI6MjEwMzY5MTU0OX0._0ie1Eic4sURZLZtFe0yZS5fvsNQOBBdNhI3MKF0IIo",
+    "NEXT_PUBLIC_SITE_URL": ""
+  }
+}

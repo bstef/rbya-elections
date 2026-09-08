@@ -7,7 +7,11 @@ election committee, and a ballot that's correct by construction rather than
 cleaned up after the fact.
 
 Stack: Next.js (TypeScript, App Router) + Supabase (Postgres, Auth, RLS),
-deployed on Vercel.
+deployed on Cloudflare Workers via [vinext](https://vinext.dev/) (Cloudflare's
+recommended Next.js-on-Workers path, still in beta as of this writing).
+Originally deployed on Vercel; moved to Cloudflare Workers' free tier since
+this app only sees real traffic once a year around Convention and Vercel's
+paid plan wasn't worth it for that usage pattern.
 
 ## How it works
 
@@ -78,10 +82,43 @@ Nomination-confirmation and delegate-registration notification emails
 
 ## Deployment
 
-Deployed on Vercel. Set the same environment variables from `.env.local`
-in the Vercel project settings (`NEXT_PUBLIC_SUPABASE_URL`,
-`NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SITE_URL` set to the
-production URL, and `SUPABASE_SERVICE_ROLE_KEY` only if a future feature
-needs it). Also add the production URL to Supabase Auth's redirect allow
+Deployed on Cloudflare Workers. Alongside the plain Next.js scripts
+(`dev`/`build`/`start`, unchanged and still useful for quick local checks),
+`vinext init` added Cloudflare-specific ones:
+
+```bash
+npm run dev:vinext     # dev server on the Vite/vinext toolchain
+npm run build:vinext   # production build
+npm run start:vinext   # run the built Worker locally under wrangler (real Workers runtime)
+npm run deploy:vinext  # deploy to Cloudflare Workers
+```
+
+First-time setup:
+
+```bash
+npx wrangler login
+npm run deploy:vinext
+```
+
+Public (`NEXT_PUBLIC_*`) env vars live directly in `wrangler.jsonc`'s `vars`
+block, committed to the repo — safe, since they're bundled into client JS
+regardless. `NEXT_PUBLIC_SITE_URL` there needs updating to the real
+`*.workers.dev` (or custom domain) URL after the first deploy. Anything
+actually sensitive (e.g. `SUPABASE_SERVICE_ROLE_KEY`, if a future feature
+ends up needing it) should go in via `npx wrangler secret put
+SUPABASE_SERVICE_ROLE_KEY` instead, never committed.
+
+After deploying, add the resulting URL to Supabase Auth's redirect allow
 list (Project Settings > Auth > URL Configuration) so magic links resolve
 correctly.
+
+### Why vinext over the older OpenNext adapter
+
+Cloudflare now recommends vinext (a Vite plugin that reimplements the
+Next.js API surface) over the previously-standard `@opennextjs/cloudflare`
+adapter for new migrations. `npx vinext check` reported 90% compatibility
+for this app with no real blockers, and everything (dynamic routes, the
+`proxy.ts` middleware/auth guard, Server Actions, the theme toggle client
+component) was verified working under the actual Workers runtime
+(`start:vinext`) before deploying. If a future Next.js feature turns out
+to be unsupported, OpenNext remains a documented fallback path.
