@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { href: "/nominate", label: "Nominate" },
   { href: "/delegates/register", label: "Register Delegates" },
   { href: "/results", label: "Results" },
+  { href: "/archive", label: "Archive" },
   { href: "/about", label: "About" },
 ];
 
@@ -14,14 +15,14 @@ export function SiteHeader() {
   return (
     <header className="border-b border-hairline bg-surface">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
-        <Link href="/" className="shrink-0 rounded-md bg-white p-1.5">
+        <Link href="/" className="shrink-0 rounded-lg bg-white p-2">
           <Image
             src="/rbyaelections.png"
             alt="RBYA Elections"
             width={1774}
             height={887}
             priority
-            className="h-9 w-auto"
+            className="h-14 w-auto"
           />
         </Link>
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-ink-muted">

@@ -5,7 +5,7 @@ import { candidateState, CANDIDATE_STATE_LABELS } from "@/lib/election/candidate
 import { IgnoreToggleButton } from "@/components/admin/IgnoreToggleButton";
 import { RequestVettingButton } from "@/components/admin/RequestVettingButton";
 import { Banner, Card } from "@/components/ui/Card";
-import { Avatar } from "@/components/ui/Avatar";
+import { PhotoUploadField } from "@/components/forms/PhotoUploadField";
 import type { Candidate } from "@/lib/types/models";
 
 function vettingLabel(candidate: Candidate): string {
@@ -60,7 +60,12 @@ export default async function AdminCandidatesPage() {
             <Card key={candidate.id}>
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="flex items-start gap-3">
-                  <Avatar imageUrl={candidate.image_url} name={candidate.name} size={40} />
+                  <PhotoUploadField
+                    token={candidate.confirm_token}
+                    name={candidate.name}
+                    initialImageUrl={candidate.image_url}
+                    avatarSize={40}
+                  />
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="font-semibold text-ink">{candidate.name}</p>

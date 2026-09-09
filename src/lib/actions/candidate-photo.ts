@@ -30,5 +30,6 @@ export async function setCandidatePhoto(
   }
 
   revalidatePath("/candidates");
+  revalidatePath("/admin/candidates");
   return { status: "success" };
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentElection } from "@/lib/election/current-election";
 import { CandidateList } from "@/components/candidates/CandidateList";
@@ -32,6 +33,11 @@ export default async function CandidatesPage() {
         </h1>
         <p className="mt-1 text-ink-muted">
           Candidates who have accepted their nomination, grouped by position.
+        </p>
+        <p className="mt-2 text-sm">
+          <Link href="/archive" className="text-ink-muted underline hover:text-ink">
+            Browse past elections
+          </Link>
         </p>
       </div>
       <CandidateList candidates={(data ?? []) as Candidate[]} />

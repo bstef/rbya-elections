@@ -40,6 +40,12 @@ export default async function AdminElectionsPage() {
             </div>
             <div className="flex items-center gap-2">
               <Link
+                href={`/results/${election.year}`}
+                className="rounded-md border border-hairline px-3 py-2 text-sm font-medium text-ink hover:bg-page"
+              >
+                View
+              </Link>
+              <Link
                 href={`/admin/elections/${election.id}/edit`}
                 className="rounded-md border border-hairline px-3 py-2 text-sm font-medium text-ink hover:bg-page"
               >

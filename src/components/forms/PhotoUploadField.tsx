@@ -13,10 +13,12 @@ export function PhotoUploadField({
   token,
   name,
   initialImageUrl,
+  avatarSize = 64,
 }: {
   token: string;
   name?: string;
   initialImageUrl?: string | null;
+  avatarSize?: number;
 }) {
   const [imageUrl, setImageUrl] = useState<string | null>(initialImageUrl ?? null);
   const [error, setError] = useState<string | null>(null);
@@ -68,7 +70,7 @@ export function PhotoUploadField({
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-4">
-        <Avatar imageUrl={imageUrl} name={name} size={64} />
+        <Avatar imageUrl={imageUrl} name={name} size={avatarSize} />
         <div>
           <label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-hairline bg-surface px-4 py-2 text-sm font-medium text-ink hover:bg-page">
             {isPending ? "Uploading..." : imageUrl ? "Change photo" : "Upload photo"}

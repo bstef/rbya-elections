@@ -16,6 +16,29 @@ export async function getCurrentElection(): Promise<Election | null> {
   return data as Election | null;
 }
 
+export async function getElectionByYear(year: number): Promise<Election | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("elections")
+    .select("*")
+    .eq("year", year)
+    .maybeSingle();
+
+  if (error) throw error;
+  return data as Election | null;
+}
+
+export async function getAllElections(): Promise<Election[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("elections")
+    .select("*")
+    .order("year", { ascending: false });
+
+  if (error) throw error;
+  return (data ?? []) as Election[];
+}
+
 export async function getElectionPositions(
   electionId: string,
 ): Promise<ElectionPosition[]> {
