@@ -3,10 +3,11 @@ import { type ButtonHTMLAttributes, forwardRef } from "react";
 type Variant = "primary" | "secondary" | "danger" | "ghost";
 
 const variantClasses: Record<Variant, string> = {
-  // Inverts to a light pill in dark mode -- without this, bg-slate-900
-  // matches the dark-mode surface color exactly and the button disappears.
+  // Navy, matching the header/logo brand color. Inverts to a light pill in
+  // dark mode -- without this, a dark navy button would sit almost flush
+  // against the dark-mode surface color and disappear.
   primary:
-    "bg-slate-900 text-white hover:bg-slate-700 disabled:bg-slate-300 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300 dark:disabled:bg-slate-700",
+    "bg-blue-950 text-white hover:bg-blue-800 disabled:bg-blue-300 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200 dark:disabled:bg-blue-900",
   secondary:
     "bg-surface text-ink border border-hairline hover:bg-page disabled:text-ink-faint",
   danger:

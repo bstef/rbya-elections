@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { MobileNav } from "@/components/MobileNav";
 
 const NAV_LINKS = [
   { href: "/candidates", label: "Candidates" },
@@ -11,35 +12,47 @@ const NAV_LINKS = [
   { href: "/about", label: "About" },
 ];
 
+export const LOGIN_BUTTON_CLASSES =
+  "rounded-md bg-blue-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-800 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200";
+
 export function SiteHeader() {
   return (
-    <header className="border-b border-hairline bg-surface">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
-        <Link href="/" className="shrink-0 rounded-lg bg-white p-2">
+    <header className="sticky top-0 z-30 border-b border-hairline bg-surface/95 backdrop-blur supports-backdrop-filter:bg-surface/80">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+        <Link href="/" className="shrink-0 rounded-lg bg-white p-1.5 sm:p-2">
           <Image
             src="/rbyaelections.png"
             alt="RBYA Elections"
             width={1774}
             height={887}
             priority
-            className="h-14 w-auto"
+            className="h-11 w-auto sm:h-14"
           />
         </Link>
-        <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-ink-muted">
+
+        <nav className="hidden items-center gap-6 text-sm font-medium text-ink-muted md:flex">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-ink">
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-ink">
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/login"
-            className="rounded-md bg-slate-900 px-3 py-1.5 text-white hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300"
-          >
+        </nav>
+
+        <div className="hidden items-center gap-3 md:flex">
+          <Link href="/login" className={LOGIN_BUTTON_CLASSES}>
             Delegate Login
           </Link>
           <ThemeToggle />
-        </nav>
+        </div>
+
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <MobileNav links={NAV_LINKS} />
+        </div>
       </div>
+
+      {/* Subtle nod to the Romanian flag -- thin, not a design centerpiece. */}
+      <div className="h-1 w-full bg-gradient-to-r from-blue-800 via-amber-400 to-red-600" />
     </header>
   );
 }
