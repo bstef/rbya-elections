@@ -6,6 +6,12 @@
     "nodejs_compat"
   ],
   "main": "vinext/server/fetch-handler",
+  "routes": [
+    {
+      "pattern": "rbya.cloud",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "dist/client",
     "not_found_handling": "none",
@@ -24,6 +30,6 @@
   "vars": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://tvltzgpgmedjsxfxrvfn.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2bHR6Z3BnbWVkanN4ZnhydmZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMTU1NDksImV4cCI6MjEwMzY5MTU0OX0._0ie1Eic4sURZLZtFe0yZS5fvsNQOBBdNhI3MKF0IIo",
-    "NEXT_PUBLIC_SITE_URL": "https://rbya-elections.ben-peacockengr.workers.dev"
+    "NEXT_PUBLIC_SITE_URL": "https://rbya.cloud"
   }
 }
