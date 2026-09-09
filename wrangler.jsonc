@@ -24,6 +24,6 @@
   "vars": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://tvltzgpgmedjsxfxrvfn.supabase.co",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2bHR6Z3BnbWVkanN4ZnhydmZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMTU1NDksImV4cCI6MjEwMzY5MTU0OX0._0ie1Eic4sURZLZtFe0yZS5fvsNQOBBdNhI3MKF0IIo",
-    "NEXT_PUBLIC_SITE_URL": ""
+    "NEXT_PUBLIC_SITE_URL": "https://rbya-elections.ben-peacockengr.workers.dev"
   }
 }
