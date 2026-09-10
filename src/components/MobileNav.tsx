@@ -72,13 +72,22 @@ export function MobileNav({ links }: { links: { href: string; label: string }[] 
               </Link>
             ))}
             <div className="my-2 border-t border-hairline" />
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="block rounded-md bg-blue-950 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200"
-            >
-              Delegate Login
-            </Link>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/admin/login"
+                onClick={() => setOpen(false)}
+                className="block rounded-md border border-blue-950 px-3 py-2 text-center text-sm font-medium text-blue-950 hover:bg-blue-950 hover:text-white dark:border-blue-100 dark:text-blue-100 dark:hover:bg-blue-100 dark:hover:text-blue-950"
+              >
+                Committee Login
+              </Link>
+              <Link
+                href="/login"
+                onClick={() => setOpen(false)}
+                className="block rounded-md bg-blue-950 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200"
+              >
+                Delegate Login
+              </Link>
+            </div>
           </div>
         </>
       )}
