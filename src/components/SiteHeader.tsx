@@ -2,19 +2,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MobileNav } from "@/components/MobileNav";
+import { DesktopNav } from "@/components/DesktopNav";
 
+// "primary" marks the two actual calls to action during election season
+// (Nominate, Register Delegates) so they read as different from the plain
+// informational links instead of every nav item looking identical.
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/candidates", label: "Candidates" },
-  { href: "/nominate", label: "Nominate" },
-  { href: "/delegates/register", label: "Register Delegates" },
+  { href: "/nominate", label: "Nominate", primary: true },
+  { href: "/delegates/register", label: "Register Delegates", primary: true },
   { href: "/results", label: "Results" },
   { href: "/archive", label: "Archive" },
   { href: "/about", label: "About" },
 ];
-
-const NAV_LINK_CLASSES =
-  "whitespace-nowrap rounded-md border border-hairline px-3 py-1.5 text-ink-muted transition-colors hover:border-ink-faint hover:bg-surface-muted hover:text-ink";
 
 export const LOGIN_BUTTON_CLASSES =
   "rounded-md bg-blue-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-800 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200";
@@ -52,13 +53,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-2 text-base font-medium xl:flex">
-          {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className={NAV_LINK_CLASSES}>
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+        <DesktopNav links={NAV_LINKS} />
 
         <div className="hidden items-center gap-3 xl:flex">
           <Link href="/admin/login" className={`${ADMIN_LOGIN_BUTTON_CLASSES} whitespace-nowrap`}>

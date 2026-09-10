@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function MenuIcon({ className }: { className?: string }) {
   return (
@@ -37,8 +38,13 @@ function XIcon({ className }: { className?: string }) {
   );
 }
 
-export function MobileNav({ links }: { links: { href: string; label: string }[] }) {
+export function MobileNav({
+  links,
+}: {
+  links: { href: string; label: string; primary?: boolean }[];
+}) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="relative">
@@ -61,16 +67,26 @@ export function MobileNav({ links }: { links: { href: string; label: string }[] 
             onClick={() => setOpen(false)}
           />
           <div className="absolute right-0 top-12 z-20 w-56 rounded-lg border border-hairline bg-surface p-2 shadow-lg">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-2.5 text-base font-medium text-ink-muted hover:bg-page hover:text-ink"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const isActive =
+                link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`block rounded-md px-3 py-2.5 text-base font-medium transition-colors ${
+                    isActive
+                      ? "bg-blue-950 text-white dark:bg-blue-100 dark:text-blue-950"
+                      : link.primary
+                        ? "text-blue-900 hover:bg-blue-50 dark:text-blue-200 dark:hover:bg-blue-950/40"
+                        : "text-ink-muted hover:bg-page hover:text-ink"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <div className="my-2 border-t border-hairline" />
             <div className="flex flex-col gap-2">
               <Link
