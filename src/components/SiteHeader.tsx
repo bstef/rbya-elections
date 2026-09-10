@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MobileNav } from "@/components/MobileNav";
+import { RbyaLogo } from "@/components/RbyaLogo";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -28,15 +28,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-hairline bg-surface/95 backdrop-blur supports-backdrop-filter:bg-surface/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-        <Link href="/" className="shrink-0 rounded-lg bg-white p-1.5 sm:p-2">
-          <Image
-            src="/rbya-elections-logo.svg"
-            alt="RBYA Elections"
-            width={620}
-            height={160}
-            priority
-            className="h-11 w-auto sm:h-14"
-          />
+        <Link href="/" className="shrink-0">
+          <RbyaLogo className="h-11 w-auto sm:h-14" />
         </Link>
 
         <nav className="hidden items-center gap-2 text-base font-medium xl:flex">
