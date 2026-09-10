@@ -64,9 +64,15 @@ export default async function HomePage() {
             >
               Start a nomination
             </Link>
+            <Link
+              href="/about"
+              className="rounded-md border border-hairline bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-page"
+            >
+              How elections work
+            </Link>
           </div>
 
-          <div className="mt-8 max-w-xl">
+          <div className="mt-8">
             {election ? (
               <PhaseBanner election={election} />
             ) : (
