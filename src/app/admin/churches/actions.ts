@@ -38,6 +38,43 @@ export async function createChurch(
   return { status: "success", message: `Added ${name}.` };
 }
 
+// Bulk import for onboarding a whole church directory at once: one church
+// per line, pipe-delimited ("name|city, ST|pastor name") since city/state
+// already contains a comma. Upserted on name (unique) so re-running the
+// same list is a no-op rather than creating duplicates.
+export async function importChurchesCsv(csvText: string): Promise<ActionState> {
+  const rows = csvText
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [name, cityState, pastorName] = line.split("|").map((part) => part?.trim());
+      return {
+        name,
+        city_state: cityState || null,
+        pastor_name: pastorName || null,
+      };
+    })
+    .filter((row) => row.name);
+
+  if (rows.length === 0) {
+    return {
+      status: "error",
+      message: "No valid rows found. Use one church per line: name|city, ST|pastor name",
+    };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("churches").upsert(rows, { onConflict: "name" });
+
+  if (error) {
+    return { status: "error", message: messageForRpcError(error) };
+  }
+
+  revalidatePath("/admin/churches");
+  return { status: "success", message: `Imported ${rows.length} churches.` };
+}
+
 export async function setYouthCount(
   electionId: string,
   churchId: string,

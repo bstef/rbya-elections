@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentElection } from "@/lib/election/current-election";
 import { CreateChurchForm } from "@/components/admin/CreateChurchForm";
+import { ChurchCsvImportForm } from "@/components/admin/ChurchCsvImportForm";
 import { YouthCountInput } from "@/components/admin/YouthCountInput";
 import { Banner } from "@/components/ui/Card";
 import type { Church } from "@/lib/types/models";
@@ -61,6 +62,11 @@ export default async function AdminChurchesPage() {
       <div>
         <h2 className="mb-3 text-lg font-semibold text-ink">Add a church</h2>
         <CreateChurchForm />
+      </div>
+
+      <div>
+        <h2 className="mb-3 text-lg font-semibold text-ink">Bulk import</h2>
+        <ChurchCsvImportForm />
       </div>
     </div>
   );
