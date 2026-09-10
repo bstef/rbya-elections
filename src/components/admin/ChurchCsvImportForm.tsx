@@ -22,20 +22,20 @@ Speranta Romanian Baptist Church|Rancho Cordova, CA|Victor Saharnean|(916) 821-2
 The Way of the Cross Romanian Baptist Church|Colton, CA||(909) 825-2776|www.thewayofthecrossca.org/ro
 Romanian Baptist Church|Wheat Ridge, CO|||
 Betania Romanian Baptist Church|Jacksonville, FL|Cristian Talpos||
-First Romanian Baptist Church|Lake Worth, FL||(561) 586-8419|
-Grace Romanian Baptist Church|Hollywood, FL|Marian Chirla|(954) 920-7527|
-Grace Romanian Baptist Church of Naples|Naples, FL||(239) 595-8323|
-New Life Romanian Baptist Church|Hollywood, FL|Florin Vancea / George Dancea|(954) 920-3614|
+First Romanian Baptist Church|Lake Worth, FL||(561) 586-8419|frbcwpb.com
+Grace Romanian Baptist Church|Hollywood, FL|Marian Chirla|(954) 920-7527|graceromanianbaptist.com
+Grace Romanian Baptist Church of Naples|Naples, FL||(239) 595-8323|grbcn.org
+New Life Romanian Baptist Church|Hollywood, FL|Florin Vancea / George Dancea|(954) 920-3614|newliferbc.com
 Conyers Romanian Baptist Fellowship|Conyers, GA|Igor Coada|(770) 929-0152|
 Eben-Ezer Romanian Baptist Church|Lawrenceville, GA|||
 First Romanian Baptist Church|Roswell, GA|Cristi Cocian|(770) 992-4274|
 Gwinnett Romanian Baptist Church|Buford, GA|Matei Istudor|(678) 421-4722|www.grbcatlanta.com
 Betel Romanian Baptist Church|Park Ridge, IL|Valentin Popovici / Peter Ordeanu||www.betelchurch.org
-First Romanian Baptist Church|Chicago, IL|Ionut Deliu-Zaharie|(773) 525-8844|
+First Romanian Baptist Church|Chicago, IL|Ionut Deliu-Zaharie|(773) 525-8844|firstrbc-chicago.org
 Romanian Baptist Church of Metropolitan Chicago|Des Plaines, IL|Adrian Neiconi|(847) 824-0182|www.rbc-chicago.org
-Providence Moldovian Baptist Church|Greenfield, MA|Simion Placinta||
+Providence Moldovian Baptist Church|Greenfield, MA|Simion Placinta||providencegbc.net
 First Romanian Baptist Church|Troy, MI|Sorin Covaci|(248) 524-2160|www.frbc-troy.com
-Golgota Romanian Baptist Church|Warren, MI|Ștefan Ghinescu|(586) 755-1565|
+Golgota Romanian Baptist Church|Warren, MI|Ștefan Ghinescu|(586) 755-1565|biserica.com
 Romanian Baptist Church|Blain, MN|Simeon Daskalyuk||
 First Romanian Baptist Church|Ridgewood, NY|Levi Marian|(718) 381-2208|
 Maranatha Romanian Baptist Church|Ridgewood, NY|Emanuel Grozea|(347) 408-0650|www.maranatha.nyc
@@ -45,28 +45,28 @@ Romanian Baptist Church|Hickory, NC|Vali Tent|(828) 294-6131|www.romanianbaptist
 Romanian Baptist Church of Charlotte|Charlotte, NC|Livius Percy / Radu Știr|(704) 562-2339|www.rombcc.com
 Romanian Bible Baptist Church|Greenville, SC|Petrică Muresan|(864) 895-8152|www.romanianbaptistchurchgreenville.com
 Romanian Baptist Church|Canton, OH|Tudor Sandu Peshel|(330) 649-0319|
-Romanian Baptist Church|Seven Hills, OH|Dan Paul|(216) 642-3131|
-Romanian Baptist Church|Uniontown, OH|Mihai Cabău|(330) 903-3157|
+Romanian Baptist Church|Seven Hills, OH|Dan Paul|(216) 642-3131|clevelandrbc.com
+Romanian Baptist Church|Uniontown, OH|Mihai Cabău|(330) 903-3157|rbc-akron.org
 Romanian Baptist Church|Beaverton, OR|Eusebiu Rusu|(503) 310-4979|www.rbcbeaverton.org
 Romanian Baptist Church of Portland|Portland, OR|Ciprian Ardelean|(503) 785-0372|www.rbcportland.com
 Jesus the Savior Romanian Baptist Church|Collegesville, PA|Dumitru Toderic|(610) 488-0565|
 First Romanian Baptist Church|Nashville, TN|Lucian Rad|(615) 391-4702|
 Logos Romanian Baptist Church|Nashville, TN|Nelu Gug / Samuel Stan||
-Bethesda Romanian Baptist Church|Porter, TX|Marius Maduta||
-First Romanian Baptist Church|Humble, TX|Claudiu Valcu||
-Grace Romanian Baptist Church|Euless, TX|Vali Ciortan||
+Bethesda Romanian Baptist Church|Porter, TX|Marius Maduta||bethesdarbc.org
+First Romanian Baptist Church|Humble, TX|Claudiu Valcu||houstonfrbc.org
+Grace Romanian Baptist Church|Euless, TX|Vali Ciortan||graceromanianchurch.com
 Prestonwood Romanian Baptist Church|Plano, TX|Marin Tomulet|(972) 820-5000|
 Romanian Baptist Church of Houston|Kingwood, TX|Ioan Stir|(832) 725-6877|
-Sion Romanian Baptist Church|San Antonio, TX||(210) 455-2917|
+Sion Romanian Baptist Church|San Antonio, TX||(210) 455-2917|sionrbc.org
 First Romanian Baptist Church|Stafford, VA||(540) 288-7520|www.frbvirginia.org
-Golgotha Baptist Church|Tacoma, WA|Pavel Sandu|(253) 222-7196|
-Good News Romanian Baptist Church|Kirkland, WA|Marius Teodoru|(425) 747-4808|
+Golgotha Baptist Church|Tacoma, WA|Pavel Sandu|(253) 222-7196|golgotambc.org
+Good News Romanian Baptist Church|Kirkland, WA|Marius Teodoru|(425) 747-4808|gnrbc.com
 Romanian Baptist Church of Vancouver|Vancouver, WA||(360) 635-7388|www.rbcvancouverwa.com
 Emanuel Romanian Baptist Church|Port Coquitlam, BC|Daniel Mihoc|(425) 691-0118|www.bisericaemanuel.ca
 Bethel Baptist Church|Kitchener, ON|Florin Dragomir|(519) 893-7604|
 First Romanian Baptist Church|Kitchener, ON|Daniel Purza|(519) 579-1741|www.frbckw.ca
 First Romanian Baptist Church|Windsor, ON||(226) 975-2534|www.frbcwindsor.com
-Hope Romanian Baptist Church|Kitchener, ON|Ioan Raca||
+Hope Romanian Baptist Church|Kitchener, ON|Ioan Raca||hoperombc.weebly.com
 Romanian Baptist Church|North York, ON|Mircea Toma|(416) 803-7794|www.bisericabaptistatoronto.org
 Romanian Baptist Church|Hamilton, ON|Petar Marcuci||
 First Romanian Baptist Church of Montreal|Laval des Rapides, QC||(450) 669-9345|
