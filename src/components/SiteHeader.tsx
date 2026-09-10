@@ -30,10 +30,10 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="shrink-0 rounded-lg bg-white p-1.5 sm:p-2">
           <Image
-            src="/rbyaelections.png"
+            src="/rbya-elections-logo.svg"
             alt="RBYA Elections"
-            width={1774}
-            height={887}
+            width={620}
+            height={160}
             priority
             className="h-11 w-auto sm:h-14"
           />
