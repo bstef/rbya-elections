@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
 
 const ADMIN_LINKS = [
   { href: "/admin/dashboard", label: "Dashboard" },
@@ -31,7 +32,8 @@ export default async function AdminLayout({
 
   return (
     <div className="flex flex-col gap-6 sm:flex-row">
-      <nav className="flex shrink-0 flex-row gap-1 overflow-x-auto sm:w-48 sm:flex-col">
+      <AdminMobileNav links={ADMIN_LINKS} />
+      <nav className="hidden shrink-0 sm:flex sm:w-48 sm:flex-col sm:gap-1">
         {ADMIN_LINKS.map((link) => (
           <Link
             key={link.href}
