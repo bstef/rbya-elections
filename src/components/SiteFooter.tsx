@@ -38,10 +38,15 @@ export function SiteFooter() {
             <span aria-hidden="true">🗳️</span>
             How it works
           </Link>
-          <Link href="/project" className="inline-flex items-center gap-1 hover:text-ink-muted">
+          <a
+            href="https://bstef.com/rbyaelections/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 hover:text-ink-muted"
+          >
             <span aria-hidden="true">🛠️</span>
-            Behind the scenes
-          </Link>
+            About This Project
+          </a>
           <Link href="/admin/login" className="inline-flex items-center gap-1 hover:text-ink-muted">
             <span aria-hidden="true">🔐</span>
             Committee Login
