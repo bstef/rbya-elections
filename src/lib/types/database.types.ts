@@ -237,6 +237,8 @@ export type Database = {
           id: string
           name: string
           pastor_name: string | null
+          phone: string | null
+          website: string | null
           youth_leader_name: string | null
         }
         Insert: {
@@ -245,6 +247,8 @@ export type Database = {
           id?: string
           name: string
           pastor_name?: string | null
+          phone?: string | null
+          website?: string | null
           youth_leader_name?: string | null
         }
         Update: {
@@ -253,6 +257,8 @@ export type Database = {
           id?: string
           name?: string
           pastor_name?: string | null
+          phone?: string | null
+          website?: string | null
           youth_leader_name?: string | null
         }
         Relationships: []

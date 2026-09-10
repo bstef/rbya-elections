@@ -86,6 +86,8 @@ export interface Church {
   city_state: string | null;
   pastor_name: string | null;
   youth_leader_name: string | null;
+  phone: string | null;
+  website: string | null;
   created_at: string;
 }
 

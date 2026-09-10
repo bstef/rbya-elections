@@ -35,6 +35,14 @@ export function CreateChurchForm() {
           <Label htmlFor="youthLeaderName">Youth leader&apos;s name</Label>
           <Input id="youthLeaderName" name="youthLeaderName" />
         </div>
+        <div>
+          <Label htmlFor="phone">Phone</Label>
+          <Input id="phone" name="phone" type="tel" />
+        </div>
+        <div>
+          <Label htmlFor="website">Website</Label>
+          <Input id="website" name="website" type="url" />
+        </div>
       </div>
       <Button type="submit" disabled={isPending}>
         {isPending ? "Adding..." : "Add church"}

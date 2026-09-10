@@ -3,6 +3,7 @@ import { getCurrentElection } from "@/lib/election/current-election";
 import { CreateChurchForm } from "@/components/admin/CreateChurchForm";
 import { ChurchCsvImportForm } from "@/components/admin/ChurchCsvImportForm";
 import { YouthCountInput } from "@/components/admin/YouthCountInput";
+import { EditChurchForm } from "@/components/admin/EditChurchForm";
 import { Banner } from "@/components/ui/Card";
 import type { Church } from "@/lib/types/models";
 
@@ -47,14 +48,40 @@ export default async function AdminChurchesPage() {
             <div>
               <p className="font-medium text-ink">{church.name}</p>
               <p className="text-sm text-ink-faint">{church.city_state}</p>
+              {church.pastor_name && (
+                <p className="text-sm text-ink-faint">Pastor: {church.pastor_name}</p>
+              )}
+              {(church.phone || church.website) && (
+                <p className="text-sm text-ink-faint">
+                  {church.phone}
+                  {church.phone && church.website && " · "}
+                  {church.website && (
+                    <a
+                      href={
+                        church.website.startsWith("http")
+                          ? church.website
+                          : `https://${church.website}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-ink"
+                    >
+                      {church.website}
+                    </a>
+                  )}
+                </p>
+              )}
             </div>
-            {election && (
-              <YouthCountInput
-                electionId={election.id}
-                churchId={church.id}
-                initialCount={youthCountByChurch.get(church.id) ?? null}
-              />
-            )}
+            <div className="flex flex-wrap items-center gap-2">
+              {election && (
+                <YouthCountInput
+                  electionId={election.id}
+                  churchId={church.id}
+                  initialCount={youthCountByChurch.get(church.id) ?? null}
+                />
+              )}
+              <EditChurchForm church={church} />
+            </div>
           </div>
         ))}
       </div>
