@@ -13,14 +13,8 @@ const NAV_LINKS = [
   { href: "/about", label: "About" },
 ];
 
-// Thin gradient "border" via the padding trick (a gradient background peeking
-// out from behind an inset solid-background inner element) -- plain CSS
-// border-color can't be a gradient. Visible at rest, not just on hover/focus,
-// echoing the flag stripe below the header.
-const NAV_LINK_WRAPPER_CLASSES =
-  "whitespace-nowrap rounded-md bg-gradient-to-r from-blue-800 via-amber-400 to-red-600 p-[1.5px] transition-transform hover:-translate-y-0.5";
-const NAV_LINK_INNER_CLASSES =
-  "block rounded-[5px] bg-surface px-3 py-1.5 text-ink-muted transition-colors hover:bg-surface-muted hover:text-ink";
+const NAV_LINK_CLASSES =
+  "whitespace-nowrap rounded-md border border-hairline px-3 py-1.5 text-ink-muted transition-colors hover:border-ink-faint hover:bg-surface-muted hover:text-ink";
 
 export const LOGIN_BUTTON_CLASSES =
   "rounded-md bg-blue-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-800 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200";
@@ -42,8 +36,8 @@ export function SiteHeader() {
 
         <nav className="hidden items-center gap-2 text-base font-medium xl:flex">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className={NAV_LINK_WRAPPER_CLASSES}>
-              <span className={NAV_LINK_INNER_CLASSES}>{link.label}</span>
+            <Link key={link.href} href={link.href} className={NAV_LINK_CLASSES}>
+              {link.label}
             </Link>
           ))}
         </nav>

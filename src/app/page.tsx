@@ -18,8 +18,32 @@ export default async function HomePage() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-amber-50 dark:from-blue-950/50 dark:via-transparent dark:to-transparent"
         />
+
+        {/* Decorative ballot-box motif, echoing the logo -- a quiet visual
+            cue for "elections" rather than a literal photo. */}
+        <svg
+          viewBox="0 0 200 200"
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-8 -right-8 h-56 w-56 text-blue-900/10 dark:text-blue-100/10 sm:h-72 sm:w-72"
+        >
+          <rect x="30" y="85" width="140" height="95" rx="10" stroke="currentColor" strokeWidth="6" fill="none" />
+          <path d="M30 110h140" stroke="currentColor" strokeWidth="6" />
+          <line x1="70" y1="85" x2="130" y2="85" stroke="currentColor" strokeWidth="6" />
+          <g transform="rotate(-10 100 50)">
+            <rect x="72" y="15" width="56" height="72" rx="5" stroke="currentColor" strokeWidth="6" fill="none" />
+            <path
+              d="M85 52l11 11 20-26"
+              stroke="currentColor"
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+          </g>
+        </svg>
+
         <div className="relative">
-          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-ink font-display sm:text-5xl md:text-6xl">
+          <h1 className="text-3xl font-bold tracking-tight text-ink font-display sm:text-nowrap sm:text-5xl md:text-6xl">
             RBYA Committee Elections
           </h1>
           <p className="mt-4 max-w-xl text-lg text-ink-muted sm:text-xl">
