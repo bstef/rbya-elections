@@ -16,29 +16,35 @@ export default async function ArchivedResultsPage({
   const election = await getElectionByYear(yearNum);
   if (!election) notFound();
 
-  return (
-    <div className="space-y-8">
-      <div>
-        <p className="text-sm">
-          <Link href="/archive" className="text-ink-muted underline hover:text-ink">
-            &larr; All elections
-          </Link>
-        </p>
-        <h1 className="mt-1 text-2xl font-bold text-ink font-display">{election.year} Results</h1>
-        <p className="mt-1 text-ink-muted">
-          A candidate is elected with more than 50% of ballots cast for their
-          position. If fewer candidates than there are seats clear a
-          majority, those seats remain open.
-        </p>
-      </div>
+  const backLink = (
+    <p className="text-sm">
+      <Link href="/archive" className="text-ink-muted underline hover:text-ink">
+        &larr; All elections
+      </Link>
+    </p>
+  );
 
-      {!election.results_published ? (
+  if (!election.results_published) {
+    return (
+      <div className="space-y-4">
+        {backLink}
+        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Results</h1>
         <Banner tone="info">
           Results for the {election.year} election have not been published.
         </Banner>
-      ) : (
-        <ResultsDisplay election={election} />
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {backLink}
+      <p className="text-sm text-ink-muted">
+        A candidate is elected with more than 50% of ballots cast for their
+        position. If fewer candidates than there are seats clear a majority,
+        those seats remain open.
+      </p>
+      <ResultsDisplay election={election} />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import { getElectionPositions } from "@/lib/election/current-election";
 import { getPositionResults } from "@/lib/election/results";
 import { positionLabel } from "@/lib/constants";
+import { createClient } from "@/lib/supabase/server";
+import { WinnersHero } from "@/components/results/WinnersHero";
 import type { Election } from "@/lib/types/models";
 
 // Shared by /results (current election) and /results/[year] (archive) --
@@ -14,8 +16,23 @@ export async function ResultsDisplay({ election }: { election: Election }) {
     })),
   );
 
+  const supabase = await createClient();
+  const { data: candidates } = await supabase
+    .from("candidates")
+    .select("id, image_url")
+    .eq("election_id", election.id);
+  const candidatePhotos = Object.fromEntries(
+    (candidates ?? []).map((c) => [c.id, c.image_url]),
+  );
+
   return (
     <div className="space-y-8">
+      <WinnersHero
+        resultsByPosition={resultsByPosition}
+        candidatePhotos={candidatePhotos}
+        year={election.year}
+      />
+
       {resultsByPosition.map(({ position, results }) => (
         <section key={position}>
           <h2 className="mb-3 text-lg font-semibold text-ink">{positionLabel(position)}</h2>
