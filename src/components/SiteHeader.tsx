@@ -38,7 +38,7 @@ export function SiteHeader() {
             width={1910}
             height={823}
             priority
-            className="h-11 w-auto dark:hidden sm:h-14"
+            className="h-14 w-auto dark:hidden sm:h-16"
           />
           <span className="hidden rounded-lg bg-white p-1.5 dark:flex sm:p-2">
             <Image
@@ -47,7 +47,7 @@ export function SiteHeader() {
               width={1774}
               height={887}
               priority
-              className="h-8 w-auto sm:h-10"
+              className="h-11 w-auto sm:h-12"
             />
           </span>
         </Link>
