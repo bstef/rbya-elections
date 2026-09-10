@@ -12,55 +12,81 @@ export default async function HomePage() {
   const election = await getCurrentElection();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
+      <section className="relative overflow-hidden rounded-2xl border border-hairline bg-surface px-6 py-12 sm:px-12 sm:py-16">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-50 via-transparent to-amber-50 dark:from-blue-950/50 dark:via-transparent dark:to-transparent"
+        />
+        <div className="relative">
+          <h1 className="max-w-2xl text-4xl font-bold tracking-tight text-ink font-display sm:text-5xl md:text-6xl">
+            RBYA Committee Elections
+          </h1>
+          <p className="mt-4 max-w-xl text-lg text-ink-muted sm:text-xl">
+            Nominate a candidate, register your church&apos;s delegates, and cast
+            your ballot -- all in one place.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/candidates"
+              className="rounded-md bg-blue-950 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-800 dark:bg-blue-100 dark:text-blue-950 dark:hover:bg-blue-200"
+            >
+              View candidates
+            </Link>
+            <Link
+              href="/nominate"
+              className="rounded-md border border-hairline bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-page"
+            >
+              Start a nomination
+            </Link>
+          </div>
+
+          <div className="mt-8 max-w-xl">
+            {election ? (
+              <PhaseBanner election={election} />
+            ) : (
+              <Banner tone="warning">
+                There is no active election configured right now. Please
+                check back later, or contact the election committee.
+              </Banner>
+            )}
+          </div>
+        </div>
+      </section>
+
       <div>
-        <h1 className="text-4xl font-bold tracking-tight text-ink font-display sm:text-5xl">
-          RBYA Committee Elections
-        </h1>
-        <p className="mt-3 max-w-2xl text-lg text-ink-muted">
-          Nominate a candidate, register your church&apos;s delegates, and cast your
-          ballot -- all in one place.
-        </p>
-      </div>
-
-      {election ? (
-        <PhaseBanner election={election} />
-      ) : (
-        <Banner tone="warning">
-          There is no active election configured right now. Please check back
-          later, or contact the election committee.
-        </Banner>
-      )}
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <ActionCard
-          accent="blue"
-          title="Nominate a candidate"
-          description="Submit a nomination for a committee position. Nominees confirm by email before appearing publicly."
-          href="/nominate"
-          cta="Start a nomination"
-        />
-        <ActionCard
-          accent="violet"
-          title="View candidates"
-          description="See who has been nominated and accepted, grouped by position, and leave a note of support."
-          href="/candidates"
-          cta="View candidates"
-        />
-        <ActionCard
-          accent="amber"
-          title="Register your church's delegates"
-          description="Submit your church's delegate list ahead of Convention so they can vote."
-          href="/delegates/register"
-          cta="Register delegates"
-        />
-        <ActionCard
-          accent="emerald"
-          title="Vote"
-          description="Registered delegates can log in with their email to cast a ballot."
-          href="/login"
-          cta="Delegate login"
-        />
+        <h2 className="text-xl font-semibold text-ink">Get started</h2>
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <ActionCard
+            accent="blue"
+            title="Nominate a candidate"
+            description="Submit a nomination for a committee position. Nominees confirm by email before appearing publicly."
+            href="/nominate"
+            cta="Start a nomination"
+          />
+          <ActionCard
+            accent="violet"
+            title="View candidates"
+            description="See who has been nominated and accepted, grouped by position, and leave a note of support."
+            href="/candidates"
+            cta="View candidates"
+          />
+          <ActionCard
+            accent="amber"
+            title="Register your church's delegates"
+            description="Submit your church's delegate list ahead of Convention so they can vote."
+            href="/delegates/register"
+            cta="Register delegates"
+          />
+          <ActionCard
+            accent="emerald"
+            title="Vote"
+            description="Registered delegates can log in with their email to cast a ballot."
+            href="/login"
+            cta="Delegate login"
+          />
+        </div>
       </div>
     </div>
   );
@@ -127,7 +153,7 @@ function ActionCard({
       <div className={`h-1.5 w-full ${ACCENT_CLASSES[accent]}`} />
       <div className="flex flex-1 flex-col justify-between p-6">
         <div>
-          <h2 className="font-semibold text-ink">{title}</h2>
+          <h3 className="font-semibold text-ink">{title}</h3>
           <p className="mt-1 text-sm text-ink-muted">{description}</p>
         </div>
         <Link

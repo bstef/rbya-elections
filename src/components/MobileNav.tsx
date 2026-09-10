@@ -41,7 +41,7 @@ export function MobileNav({ links }: { links: { href: string; label: string }[] 
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative md:hidden">
+    <div className="relative">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -66,7 +66,7 @@ export function MobileNav({ links }: { links: { href: string; label: string }[] 
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm font-medium text-ink-muted hover:bg-page hover:text-ink"
+                className="block rounded-md px-3 py-2.5 text-base font-medium text-ink-muted hover:bg-page hover:text-ink"
               >
                 {link.label}
               </Link>
