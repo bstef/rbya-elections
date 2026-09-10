@@ -1,12 +1,16 @@
 import Link from "next/link";
 
 const EXTERNAL_LINKS = [
-  { href: "https://www.rbya.org/", label: "RBYA.org" },
-  { href: "https://www.rbya.org/aboutus", label: "About Us" },
-  { href: "https://www.rbya.org/events", label: "Events" },
-  { href: "https://www.rbya.org/donate", label: "Donate" },
-  { href: "https://www.instagram.com/r_b_y_a/", label: "Instagram" },
-  { href: "https://www.facebook.com/RomanianBaptistYouthAssociation/", label: "Facebook" },
+  { href: "https://www.rbya.org/", label: "RBYA.org", emoji: "🌐" },
+  { href: "https://www.rbya.org/aboutus", label: "About Us", emoji: "ℹ️" },
+  { href: "https://www.rbya.org/events", label: "Events", emoji: "📅" },
+  { href: "https://www.rbya.org/donate", label: "Donate", emoji: "💝" },
+  { href: "https://www.instagram.com/r_b_y_a/", label: "Instagram", emoji: "📸" },
+  {
+    href: "https://www.facebook.com/RomanianBaptistYouthAssociation/",
+    label: "Facebook",
+    emoji: "📘",
+  },
 ];
 
 export function SiteFooter() {
@@ -24,15 +28,18 @@ export function SiteFooter() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-ink-muted"
+              className="inline-flex items-center gap-1 hover:text-ink-muted"
             >
+              <span aria-hidden="true">{link.emoji}</span>
               {link.label}
             </a>
           ))}
-          <Link href="/about" className="hover:text-ink-muted">
+          <Link href="/about" className="inline-flex items-center gap-1 hover:text-ink-muted">
+            <span aria-hidden="true">🗳️</span>
             How it works
           </Link>
-          <Link href="/admin/login" className="hover:text-ink-muted">
+          <Link href="/admin/login" className="inline-flex items-center gap-1 hover:text-ink-muted">
+            <span aria-hidden="true">🔐</span>
             Committee Login
           </Link>
         </nav>

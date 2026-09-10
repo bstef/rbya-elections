@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MobileNav } from "@/components/MobileNav";
-import { RbyaLogo } from "@/components/RbyaLogo";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -29,7 +29,27 @@ export function SiteHeader() {
     <header className="sticky top-0 z-30 border-b border-hairline bg-surface/95 backdrop-blur supports-backdrop-filter:bg-surface/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="shrink-0">
-          <RbyaLogo className="h-11 w-auto sm:h-14" />
+          {/* The mark's navy ink only reads against a light backdrop, so dark
+              mode swaps to the flattened white-background export inside a
+              white badge instead of the transparent one going invisible. */}
+          <Image
+            src="/rbyaelectionstransparent.png"
+            alt="RBYA Elections"
+            width={1910}
+            height={823}
+            priority
+            className="h-11 w-auto dark:hidden sm:h-14"
+          />
+          <span className="hidden rounded-lg bg-white p-1.5 dark:flex sm:p-2">
+            <Image
+              src="/rbyaelectionswhite.png"
+              alt="RBYA Elections"
+              width={1774}
+              height={887}
+              priority
+              className="h-8 w-auto sm:h-10"
+            />
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-2 text-base font-medium xl:flex">
