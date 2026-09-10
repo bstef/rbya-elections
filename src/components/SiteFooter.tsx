@@ -38,6 +38,10 @@ export function SiteFooter() {
             <span aria-hidden="true">🗳️</span>
             How it works
           </Link>
+          <Link href="/project" className="inline-flex items-center gap-1 hover:text-ink-muted">
+            <span aria-hidden="true">🛠️</span>
+            Behind the scenes
+          </Link>
           <Link href="/admin/login" className="inline-flex items-center gap-1 hover:text-ink-muted">
             <span aria-hidden="true">🔐</span>
             Committee Login

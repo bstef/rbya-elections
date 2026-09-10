@@ -1,5 +1,7 @@
 # RBYA Elections
 
+Live at **[rbya.cloud](https://rbya.cloud)**.
+
 Nomination, delegate registration, and voting for RBYA (Romanian Baptist
 Youth Association) committee elections. A rebuild of the org's old ASP.NET
 Core election app, with real authentication for both voters and the
@@ -26,7 +28,14 @@ paid plan wasn't worth it for that usage pattern.
 - **The election committee** logs in with a real password (`/admin/login`,
   accounts provisioned out-of-band, not via public sign-up) to manage
   elections/positions, moderate candidates and comments, verify delegates,
-  and publish results.
+  edit a candidate's photo if needed, and publish results.
+- **Results** (`/results`) lead with a winners summary — one card per
+  executive position (President, both VPs, Treasurer, Controller), plus a
+  collapsible General Committee section for the larger, multi-seat
+  committee-member race — with the full per-candidate vote tables below
+  it. Past elections stay browsable afterward through `/archive`,
+  `/candidates/year/[year]`, and `/results/[year]`, so a completed
+  election's candidates and results aren't lost once a new one starts.
 
 All public writes and the ballot submission go through Postgres
 `SECURITY DEFINER` functions (see `supabase/migrations/0010_rpc_functions.sql`
@@ -100,17 +109,18 @@ npx wrangler login
 npm run deploy:vinext
 ```
 
-Public (`NEXT_PUBLIC_*`) env vars live directly in `wrangler.jsonc`'s `vars`
-block, committed to the repo — safe, since they're bundled into client JS
-regardless. `NEXT_PUBLIC_SITE_URL` there needs updating to the real
-`*.workers.dev` (or custom domain) URL after the first deploy. Anything
-actually sensitive (e.g. `SUPABASE_SERVICE_ROLE_KEY`, if a future feature
-ends up needing it) should go in via `npx wrangler secret put
-SUPABASE_SERVICE_ROLE_KEY` instead, never committed.
-
-After deploying, add the resulting URL to Supabase Auth's redirect allow
-list (Project Settings > Auth > URL Configuration) so magic links resolve
-correctly.
+The Worker is bound to the custom domain `rbya.cloud` via `wrangler.jsonc`'s
+`routes` block (`custom_domain: true`) — Cloudflare handles the DNS/TLS once
+that domain is added to the same Cloudflare account. Public (`NEXT_PUBLIC_*`)
+env vars live directly in `wrangler.jsonc`'s `vars` block, committed to the
+repo — safe, since they're bundled into client JS regardless.
+`NEXT_PUBLIC_SITE_URL` is already set to `https://rbya.cloud`; update it
+there (and in Supabase Auth's redirect allow list — Project Settings > Auth
+> URL Configuration — so magic links keep resolving correctly) if the
+domain ever changes. Anything actually sensitive (e.g.
+`SUPABASE_SERVICE_ROLE_KEY`, if a future feature ends up needing it) should
+go in via `npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY` instead,
+never committed.
 
 ### Why vinext over the older OpenNext adapter
 

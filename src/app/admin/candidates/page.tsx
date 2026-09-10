@@ -4,6 +4,7 @@ import { positionLabel } from "@/lib/constants";
 import { candidateState, CANDIDATE_STATE_LABELS } from "@/lib/election/candidate-state";
 import { IgnoreToggleButton } from "@/components/admin/IgnoreToggleButton";
 import { RequestVettingButton } from "@/components/admin/RequestVettingButton";
+import { CopyConfirmLinkButton } from "@/components/admin/CopyConfirmLinkButton";
 import { Banner, Card } from "@/components/ui/Card";
 import { PhotoUploadField } from "@/components/forms/PhotoUploadField";
 import type { Candidate } from "@/lib/types/models";
@@ -98,6 +99,11 @@ export default async function AdminCandidatesPage() {
                 <div className="flex flex-col items-end gap-2">
                   <IgnoreToggleButton candidateId={candidate.id} ignored={candidate.ignored} />
                   {canRequestVetting && <RequestVettingButton candidateId={candidate.id} />}
+                  {!candidate.confirmed_at && (
+                    <CopyConfirmLinkButton
+                      link={`${process.env.NEXT_PUBLIC_SITE_URL}/confirm/${candidate.confirm_token}`}
+                    />
+                  )}
                 </div>
               </div>
             </Card>
