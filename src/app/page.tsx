@@ -158,12 +158,12 @@ function PhaseBanner({ election }: { election: Election }) {
   }
 
   return (
-    <div className="rounded-xl bg-blue-950 px-5 py-4 dark:bg-blue-100 sm:px-6">
+    <div className="rounded-xl bg-red-600 px-5 py-4 dark:bg-red-800 sm:px-6">
       <div className="space-y-1">
         {notices.map((notice) => (
           <p
             key={notice}
-            className="text-base font-bold tracking-tight text-white sm:text-lg dark:text-blue-950"
+            className="text-base font-bold tracking-tight text-white sm:text-lg"
           >
             {notice}
           </p>
