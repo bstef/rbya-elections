@@ -2,7 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
-import { messageForRpcError } from "@/lib/constants";
+import { messageForRpcError, positionLabel } from "@/lib/constants";
+import { sendEmail } from "@/lib/email/send";
+import type { Candidate } from "@/lib/types/models";
 
 export type ActionState = {
   status: "idle" | "error" | "success";
@@ -42,13 +44,25 @@ export async function requestPastorVetting(
     return { status: "error", message: messageForRpcError(error) };
   }
 
+  const candidate = data as Candidate;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const link = `${siteUrl}/vet/${(data as { pastor_approval_token: string }).pastor_approval_token}`;
+  const link = `${siteUrl}/vet/${candidate.pastor_approval_token}`;
+
+  if (candidate.pastor_contact) {
+    await sendEmail({
+      to: candidate.pastor_contact,
+      subject: `Vouch for ${candidate.name} -- RBYA committee nomination`,
+      text: `${candidate.name} (${candidate.church}) has been nominated for ${positionLabel(candidate.position)} on the RBYA committee, and named you as their pastor or youth leader.
+
+The election committee is asking you to confirm you can vouch for their character and standing in the church:
+${link}`,
+    });
+  }
 
   revalidatePath("/admin/candidates");
   return {
     status: "success",
-    message: "Vetting request recorded. Send this link to the pastor/youth leader:",
+    message: "Vetting request emailed to the pastor/youth leader. Link (in case you need to resend it):",
     link,
   };
 }

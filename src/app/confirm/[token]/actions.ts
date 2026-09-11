@@ -2,6 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { messageForRpcError } from "@/lib/constants";
+import { sendEmail } from "@/lib/email/send";
+import type { Candidate } from "@/lib/types/models";
 
 export type ConfirmFormState = {
   status: "idle" | "error" | "success";
@@ -14,15 +16,30 @@ export async function confirmCandidate(
   pastorContact: string | null,
 ): Promise<ConfirmFormState> {
   const supabase = await createClient();
-  const { error } = await supabase.rpc("confirm_candidate", {
-    p_token: token,
-    p_accept: accept,
-    p_pastor_contact: pastorContact || undefined,
-  });
+  const { data, error } = await supabase
+    .rpc("confirm_candidate", {
+      p_token: token,
+      p_accept: accept,
+      p_pastor_contact: pastorContact || undefined,
+    })
+    .single();
 
   if (error) {
     return { status: "error", message: messageForRpcError(error) };
   }
+
+  const candidate = data as Candidate;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  await sendEmail({
+    to: candidate.submitter_email,
+    subject: accept
+      ? `${candidate.name} accepted their nomination`
+      : `${candidate.name} declined their nomination`,
+    text: accept
+      ? `${candidate.name} confirmed they'll run and now appears on the public candidates page:
+${siteUrl}/candidates/${candidate.id}`
+      : `${candidate.name} declined the nomination you submitted, so they won't appear on the ballot.`,
+  });
 
   return {
     status: "success",

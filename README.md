@@ -77,17 +77,30 @@ There's no public admin sign-up by design. To add a committee member:
    `supabase.auth.admin.createUser` with the service-role key).
 2. `insert into admins (auth_user_id, name) values ('<their auth uid>', '<name>');`
 
-### Known limitation: email delivery
+### Email delivery
 
-Supabase's default shared mailer (`noreply@mail.app.supabase.io`) has
-unreliable deliverability to real inboxes — fine for local testing, not for
-a real election. Before going live, configure custom SMTP under
-Project Settings > Auth > SMTP Settings (Supabase docs:
-[Custom SMTP](https://supabase.com/docs/guides/auth/auth-smtp)), which
-covers both the delegate magic-link email and any future auth emails.
-Nomination-confirmation and delegate-registration notification emails
-(distinct from Supabase Auth's own emails) aren't wired up yet — see
-`src/lib/email/send.ts`, currently a stub.
+Two separate mail paths:
+
+- **Supabase Auth's own emails** (the delegate magic link) still go through
+  Supabase's default shared mailer (`noreply@mail.app.supabase.io`), which
+  has unreliable deliverability to real inboxes — fine for local testing,
+  not for a real election. Before going live, configure custom SMTP under
+  Project Settings > Auth > SMTP Settings (Supabase docs:
+  [Custom SMTP](https://supabase.com/docs/guides/auth/auth-smtp)).
+- **App-triggered transactional emails** — nomination confirmation links,
+  pastor vetting requests, delegate registration acknowledgements, delegate
+  verification notices, and nomination outcome notices to the submitter —
+  go through [Resend](https://resend.com) via `src/lib/email/send.ts`.
+  Set `RESEND_API_KEY` (see `.env.local.example`) and verify both
+  `rbya.cloud` (this app's own domain, currently used as the "from"
+  address) and `rbya.org` (the parent org's domain, kept verified as a
+  fallback/alternative) under Resend > Domains — each adds a few DNS
+  records (SPF, DKIM) at wherever that domain's DNS is managed. To switch
+  the "from" address between them, change `FROM_ADDRESS` in
+  `src/lib/email/send.ts`. Each of these emails also has an on-screen
+  link/copy-button fallback in the relevant UI in case a message bounces or
+  the key isn't
+  configured yet.
 
 ## Deployment
 

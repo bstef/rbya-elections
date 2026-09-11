@@ -6,6 +6,7 @@ import {
   type DelegateRegistrationInput,
 } from "@/lib/validation/delegate";
 import { messageForRpcError } from "@/lib/constants";
+import { sendEmail } from "@/lib/email/send";
 
 export type DelegateRegistrationState = {
   status: "idle" | "error" | "success";
@@ -24,7 +25,7 @@ export async function registerDelegates(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.rpc("register_delegates", {
+  const { data, error } = await supabase.rpc("register_delegates", {
     p_church_name: parsed.data.churchName,
     p_city_state: parsed.data.cityState,
     p_pastor_name: parsed.data.pastorName,
@@ -41,6 +42,15 @@ export async function registerDelegates(
   if (error) {
     return { status: "error", message: messageForRpcError(error) };
   }
+
+  const delegateCount = data?.length ?? parsed.data.delegates.length;
+  await sendEmail({
+    to: parsed.data.registeredByEmail,
+    subject: `Delegate list received for ${parsed.data.churchName}`,
+    text: `Thanks, ${parsed.data.registeredByName}! We received ${delegateCount} delegate(s) for ${parsed.data.churchName}${parsed.data.cityState ? ` (${parsed.data.cityState})` : ""}.
+
+The election committee will verify your list before Convention. Delegates can't log in to vote until then -- we recommend checking with the committee if you don't hear back before Convention.`,
+  });
 
   return {
     status: "success",

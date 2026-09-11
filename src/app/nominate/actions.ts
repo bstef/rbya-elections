@@ -2,7 +2,8 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { nominationSchema } from "@/lib/validation/nomination";
-import { messageForRpcError } from "@/lib/constants";
+import { messageForRpcError, positionLabel } from "@/lib/constants";
+import { sendEmail } from "@/lib/email/send";
 
 export type NominationFormState = {
   status: "idle" | "error" | "success";
@@ -55,6 +56,18 @@ export async function submitNomination(
   if (error) {
     return { status: "error", message: messageForRpcError(error) };
   }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  await sendEmail({
+    to: parsed.data.email,
+    subject: "Confirm your RBYA committee nomination",
+    text: `${parsed.data.submitterName} nominated you for ${positionLabel(parsed.data.position)} on the RBYA committee.
+
+Confirm or decline the nomination here:
+${siteUrl}/confirm/${data?.confirm_token}
+
+If you weren't expecting this, you can safely ignore this email.`,
+  });
 
   return {
     status: "success",
