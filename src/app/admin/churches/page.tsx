@@ -45,11 +45,13 @@ export default async function AdminChurchesPage() {
             key={church.id}
             className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-hairline bg-surface p-4"
           >
-            <div>
-              <p className="font-medium text-ink">{church.name}</p>
+            <div className="w-full min-w-0 sm:w-auto sm:flex-1">
+              <p className="break-words font-medium text-ink">{church.name}</p>
               <p className="text-sm text-ink-faint">{church.city_state}</p>
               {church.pastor_name && (
-                <p className="text-sm text-ink-faint">Pastor: {church.pastor_name}</p>
+                <p className="break-words text-sm text-ink-faint">
+                  Pastor: {church.pastor_name}
+                </p>
               )}
               {(church.phone || church.website) && (
                 <p className="text-sm text-ink-faint">
@@ -64,7 +66,7 @@ export default async function AdminChurchesPage() {
                       }
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline hover:text-ink"
+                      className="break-all underline hover:text-ink"
                     >
                       {church.website}
                     </a>
@@ -72,7 +74,7 @@ export default async function AdminChurchesPage() {
                 </p>
               )}
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex shrink-0 flex-wrap items-center gap-2">
               {election && (
                 <YouthCountInput
                   electionId={election.id}

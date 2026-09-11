@@ -23,9 +23,10 @@ export function YouthCountInput({
       <Input
         type="number"
         min={0}
+        max={99}
         value={count}
         onChange={(e) => setCount(Number(e.target.value))}
-        className="w-20"
+        className="w-14 px-2 text-center"
       />
       <span className="whitespace-nowrap text-xs text-ink-faint">
         {delegateQuota(count)} delegate{delegateQuota(count) === 1 ? "" : "s"}
