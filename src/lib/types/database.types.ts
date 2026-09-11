@@ -39,6 +39,35 @@ export type Database = {
         }
         Relationships: []
       }
+      announcement_log: {
+        Row: {
+          created_at: string
+          election_id: string
+          id: string
+          message: string | null
+        }
+        Insert: {
+          created_at?: string
+          election_id: string
+          id?: string
+          message?: string | null
+        }
+        Update: {
+          created_at?: string
+          election_id?: string
+          id?: string
+          message?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcement_log_election_id_fkey"
+            columns: ["election_id"]
+            isOneToOne: false
+            referencedRelation: "elections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ballot_selections: {
         Row: {
           ballot_id: string

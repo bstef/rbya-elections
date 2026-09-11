@@ -15,6 +15,13 @@ export type ElectionStatus =
 export type DelegateType = "present" | "absentee";
 export type CommentType = "positive" | "negative";
 
+export interface AnnouncementLog {
+  id: string;
+  election_id: string;
+  message: string | null;
+  created_at: string;
+}
+
 export interface Election {
   id: string;
   year: number;
