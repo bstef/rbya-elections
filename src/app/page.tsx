@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getCurrentElection } from "@/lib/election/current-election";
 import {
   nominationsAreOpen,
@@ -43,9 +44,20 @@ export default async function HomePage() {
         </svg>
 
         <div className="relative">
-          <h1 className="text-3xl font-bold tracking-tight text-ink font-display sm:text-nowrap sm:text-5xl md:text-6xl">
-            RBYA Committee Elections
-          </h1>
+          <div className="flex items-center gap-4">
+            <span className="shrink-0 rounded-md bg-white p-1.5">
+              <Image
+                src="/rbya-org-logo.png"
+                alt="RBYA"
+                width={734}
+                height={734}
+                className="h-11 w-auto sm:h-14 md:h-16"
+              />
+            </span>
+            <h1 className="text-3xl font-bold tracking-tight text-ink font-display sm:text-nowrap sm:text-5xl md:text-6xl">
+              RBYA Committee Elections
+            </h1>
+          </div>
           <p className="mt-4 max-w-xl text-lg text-ink-muted sm:text-xl">
             Nominate a candidate, register your church&apos;s delegates, and cast
             your ballot -- all in one place.
