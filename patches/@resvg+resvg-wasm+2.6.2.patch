@@ -1,0 +1,13 @@
+diff --git a/node_modules/@resvg/resvg-wasm/index.mjs b/node_modules/@resvg/resvg-wasm/index.mjs
+index 60f7b61..017dd35 100644
+--- a/node_modules/@resvg/resvg-wasm/index.mjs
++++ b/node_modules/@resvg/resvg-wasm/index.mjs
+@@ -424,7 +424,7 @@ async function __wbg_load(module, imports) {
+     const bytes = await module.arrayBuffer();
+     return await WebAssembly.instantiate(bytes, imports);
+   } else {
+-    const instance = await WebAssembly.instantiate(module, imports);
++    const instance = new WebAssembly.Instance(module, imports);
+     if (instance instanceof WebAssembly.Instance) {
+       return { instance, module };
+     } else {

@@ -123,6 +123,49 @@ means editing that one file. Notes specific to email HTML:
   `localhost` images, so logo previews only render correctly when tested
   against the deployed site (or with `NEXT_PUBLIC_SITE_URL` pointed at it).
 
+## Export (`/admin/export`)
+
+Admins can download the candidate roster or election results (whichever
+positions currently have an elected winner) as a CSV, a formatted PDF, or a
+social-media graphic (Instagram post/story, Facebook post — all showing the
+full roster in one image). Source: `src/lib/export/`
+(`roster.ts` builds the data, `pdf.ts` and `social-image.tsx` render it) plus
+the three route handlers under `src/app/admin/export/`.
+
+This is the one part of the app that had to work around real Cloudflare
+Workers constraints rather than just Next.js ones, since it renders binary
+files (PDF, PNG) at request time:
+
+- **No filesystem at request time.** The logo and Noto Sans font files are
+  fetched over HTTP from this same deployment's own `public/` folder
+  (`src/lib/export/assets.ts`) rather than read from disk.
+- **`workerd` (the Workers runtime) refuses to compile WebAssembly from
+  bytes at request time** — only *instantiating* an already-compiled
+  `WebAssembly.Module` is allowed, and that module must come from a static
+  `import "*.wasm"` so `@cloudflare/vite-plugin` can precompile it at build
+  time (see `src/types/wasm.d.ts`). A runtime `fetch()` +
+  `WebAssembly.instantiate(bytes)` — the normal pattern everywhere else —
+  is a hard 500 here. `@resvg/resvg-wasm` (used to rasterize the social
+  images) needed a small patch for this too: its own bindgen glue calls the
+  disallowed `WebAssembly.instantiate()` even when handed an
+  already-compiled module, instead of the synchronous `new
+  WebAssembly.Instance()` that `workerd` actually permits — see
+  `patches/@resvg+resvg-wasm+2.6.2.patch` (applied automatically via the
+  `postinstall` script; if `npm install` ever seems to silently misbehave
+  on this feature, confirm the patch actually applied).
+- **Satori (the usual React→SVG→PNG tool for this kind of thing) doesn't
+  work here at all.** Its harfbuzz dependency needs Emscripten's
+  `addFunction`, which itself compiles a small WASM trampoline at request
+  time — the same restriction, one layer deeper, with no clean fix. The
+  social images are hand-authored SVG strings instead, rasterized by
+  `@resvg/resvg-wasm` alone (its own text shaping is compiled into that
+  same static module, so it doesn't hit this).
+- PDF text goes through a fully-embedded Noto Sans (`subset: true` silently
+  drops most glyphs with this particular font in `pdf-lib` — a known
+  `pdf-lib`/`fontkit` issue on large multi-script fonts) since names and
+  church names here are frequently Romanian and need real diacritics
+  (ă, â, î, ș, ț), which the PDF standard fonts don't support at all.
+
 ## Deployment
 
 Deployed on Cloudflare Workers. Alongside the plain Next.js scripts

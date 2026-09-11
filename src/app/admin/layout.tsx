@@ -12,6 +12,7 @@ const ADMIN_LINKS = [
   { href: "/admin/churches", label: "Churches" },
   { href: "/admin/delegates", label: "Delegates" },
   { href: "/admin/results", label: "Results" },
+  { href: "/admin/export", label: "Export" },
 ];
 
 // Middleware (src/middleware.ts) already blocks unauthenticated/non-admin
