@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans, Geist_Mono, Fraunces } from "next/font/google";
+import { Noto_Sans, Geist_Mono, Fraunces, Montserrat } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
@@ -19,6 +19,15 @@ const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
   axes: ["opsz"],
+});
+
+// Bold geometric face reserved for the homepage announcement bar -- meant
+// to stand out from both the serif brand headings and the plain sans
+// body text.
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -46,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${notoSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${notoSans.variable} ${geistMono.variable} ${fraunces.variable} ${montserrat.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

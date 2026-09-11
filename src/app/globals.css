@@ -48,6 +48,7 @@
   --font-sans: var(--font-noto-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-fraunces);
+  --font-banner: var(--font-montserrat);
 }
 
 /*
