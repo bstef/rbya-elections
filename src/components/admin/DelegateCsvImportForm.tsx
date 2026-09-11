@@ -47,6 +47,7 @@ export function DelegateCsvImportForm({
           {churches.map((church) => (
             <option key={church.id} value={church.id}>
               {church.name}
+              {church.city_state ? ` | ${church.city_state}` : ""}
             </option>
           ))}
         </select>
