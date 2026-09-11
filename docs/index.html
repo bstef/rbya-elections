@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RBYA Elections — A Ballot Correct by Construction</title>
+<meta name="description" content="How the Romanian Baptist Youth Association's annual committee election was rebuilt from a decade-old ASP.NET app into a Next.js + Supabase app on Cloudflare Workers -- real accounts for delegates and the committee, a ballot the database itself makes correct, nomination-to-results in one flow, and a full historical archive." />
+<link rel="icon" href="favicon.png" type="image/png" />
+<link rel="apple-touch-icon" href="favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Fraunces:ital,opsz,wght@1,9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c1120;
+    --surface: #131a2e;
+    --surface-raised: #1a2338;
+    --border: #262f48;
+    --text: #edf0f8;
+    --text-muted: #9aa5c4;
+    --text-faint: #626d8c;
+    --blue: #4d8dff;
+    --blue-dim: #2f4b82;
+    --amber: #f5b400;
+    --red: #d0223a;
+    --mockup-bg: #f8f6f0;
+    --mockup-ink: #10182e;
+    --mockup-ink-muted: #55618a;
+    --mockup-border: #e4e1d6;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  h1, h2, h3, .display {
+    font-family: "Fraunces", Georgia, serif;
+    text-wrap: balance;
+    margin: 0;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- nav ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(12, 17, 32, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .brand svg { flex-shrink: 0; }
+  .brand-logo { height: 26px; width: auto; border-radius: 5px; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .nav-links a { text-decoration: none; }
+  .nav-links a:hover { color: var(--text); }
+  .btn-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .btn-github:hover { border-color: #3a4568; }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 76px 0 56px; text-align: center; }
+  .eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    color: var(--amber);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.12;
+    max-width: 16ch;
+    margin: 0 auto;
+  }
+  .hero p.lede {
+    max-width: 56ch;
+    margin: 22px auto 0;
+    color: var(--text-muted);
+    font-size: 17px;
+  }
+  .hero-ctas {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 20px;
+    border-radius: 9px;
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-primary:hover { background: #3d7ae8; }
+  .btn-secondary { background: var(--surface-raised); color: var(--text); border-color: var(--border); }
+  .btn-secondary:hover { border-color: #3a4568; }
+
+  /* ---------- mockup showcase ---------- */
+  .showcase { padding: 0 0 90px; }
+  .mockup {
+    background: var(--mockup-bg);
+    border-radius: 16px;
+    border: 1px solid var(--mockup-border);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.55);
+    overflow: hidden;
+  }
+  .mockup-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--mockup-border);
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .mockup-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--mockup-ink); font-size: 14px; }
+  .mockup-brand-logo { height: 22px; width: auto; }
+  .mockup-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .mockup-pill {
+    font-size: 11.5px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    border: 1px solid var(--mockup-border);
+    color: var(--mockup-ink-muted);
+    white-space: nowrap;
+  }
+  .mockup-pill.active { background: var(--mockup-ink); color: white; border-color: var(--mockup-ink); }
+  .mockup-flag { height: 3px; background: linear-gradient(90deg, #1e3a8a, var(--amber), var(--red)); }
+  .mockup-body { padding: 34px 28px 40px; }
+  .mockup-hero {
+    background: linear-gradient(135deg, #eef3ff, #faf6e8);
+    border: 1px solid var(--mockup-border);
+    border-radius: 14px;
+    padding: 28px 24px;
+  }
+  .mockup-hero h3 { font-size: 24px; color: var(--mockup-ink); }
+  .mockup-hero p { color: var(--mockup-ink-muted); font-size: 13.5px; max-width: 46ch; margin: 10px 0 0; }
+  .mockup-buttons { margin-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .mockup-btn {
+    font-size: 12.5px;
+    padding: 8px 14px;
+    border-radius: 7px;
+    border: 1px solid var(--mockup-border);
+    color: var(--mockup-ink);
+  }
+  .mockup-btn.filled { background: var(--mockup-ink); color: white; border-color: var(--mockup-ink); }
+  .mockup-banner {
+    margin-top: 18px;
+    background: #e3ecff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #23407a;
+  }
+
+  /* ---------- sections ---------- */
+  section.block { padding: 70px 0; border-top: 1px solid var(--border); }
+  .section-head { max-width: 640px; margin: 0 auto 44px; text-align: center; }
+  .section-head .eyebrow { background: transparent; border: none; padding: 0; color: var(--blue); margin-bottom: 12px; }
+  .section-head h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 600; }
+  .section-head p { margin-top: 14px; color: var(--text-muted); font-size: 15.5px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+  }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .feature .icon { font-size: 22px; }
+  .feature h3 { font-size: 16px; font-weight: 600; margin-top: 12px; font-family: inherit; }
+  .feature p { margin: 8px 0 0; color: var(--text-muted); font-size: 14px; }
+
+  .flow { display: grid; gap: 28px; }
+  .flow-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .flow-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding-top: 3px;
+  }
+  .flow-item h3 { font-size: 18px; font-weight: 600; }
+  .flow-item p { margin: 8px 0 0; color: var(--text-muted); font-size: 14.5px; max-width: 62ch; }
+  .flow-item ul { margin: 10px 0 0; padding-left: 18px; color: var(--text-muted); font-size: 14px; }
+  .flow-item li + li { margin-top: 4px; }
+  @media (max-width: 640px) {
+    .flow-item { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+  .stack-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: left;
+    min-width: 200px;
+    flex: 1 1 220px;
+  }
+  .stack-pill .name { font-weight: 700; font-size: 14.5px; }
+  .stack-pill .desc { margin-top: 4px; color: var(--text-muted); font-size: 13px; }
+
+  footer.site {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 48px;
+  }
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 13.5px;
+    color: var(--text-faint);
+  }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { text-decoration: none; color: var(--text-muted); }
+  .footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="#top">
+      <img src="rbya-logo.png" alt="RBYA Elections" class="brand-logo" />
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#tech">Tech</a>
+      <a href="https://www.rbya.org/" target="_blank" rel="noopener noreferrer">RBYA.org</a>
+    </nav>
+    <a class="btn-github" href="https://github.com/bstef/rbya-elections" target="_blank" rel="noopener noreferrer">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38l-.01-1.49c-2.23.48-2.7-1.07-2.7-1.07-.36-.93-.89-1.17-.89-1.17-.72-.5.06-.49.06-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48l-.01 2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <span class="eyebrow">Romanian Baptist Youth Association</span>
+    <h1>A ballot that's correct by construction.</h1>
+    <p class="lede">
+      RBYA Elections is the Romanian Baptist Youth Association's annual
+      committee election, rebuilt from a decade-old ASP.NET app into a
+      Next.js + Supabase app on Cloudflare Workers. Real accounts for
+      delegates and the election committee, a ballot the database itself
+      makes correct instead of a form that trusts the client, and the same
+      nomination-to-results flow the organization already runs at
+      Convention every year -- now with a historical archive so past
+      elections stay browsable instead of disappearing.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://rbya.cloud" target="_blank" rel="noopener noreferrer">Open the App &#8599;</a>
+      <a class="btn btn-secondary" href="#how">How It Works</a>
+      <a class="btn btn-secondary" href="https://github.com/bstef/rbya-elections" target="_blank" rel="noopener noreferrer">View Source</a>
+      <a class="btn btn-secondary" href="https://www.rbya.org/" target="_blank" rel="noopener noreferrer">RBYA.org</a>
+    </div>
+  </section>
+
+  <section class="showcase wrap">
+    <div class="mockup">
+      <div class="mockup-nav">
+        <div class="mockup-brand">
+          <img src="rbya-logo.png" alt="RBYA Elections" class="mockup-brand-logo" />
+        </div>
+        <div class="mockup-pills">
+          <span class="mockup-pill active">Home</span>
+          <span class="mockup-pill">Candidates</span>
+          <span class="mockup-pill">Nominate</span>
+          <span class="mockup-pill">Results</span>
+          <span class="mockup-pill">Archive</span>
+        </div>
+      </div>
+      <div class="mockup-flag"></div>
+      <div class="mockup-body">
+        <div class="mockup-hero">
+          <h3>RBYA Committee Elections</h3>
+          <p>Nominate a candidate, register your church's delegates, and cast your ballot -- all in one place.</p>
+          <div class="mockup-buttons">
+            <span class="mockup-btn filled">View candidates</span>
+            <span class="mockup-btn">Start a nomination</span>
+            <span class="mockup-btn">How elections work</span>
+          </div>
+          <div class="mockup-banner">Nominations are open through September 27, 2026.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Features</span>
+        <h2>What it actually does</h2>
+      </div>
+      <div class="grid">
+        <div class="feature">
+          <div class="icon">🗳️</div>
+          <h3>Ballot Integrity by Design</h3>
+          <p>One row per election/delegate/position, enforced by a database constraint, plus a trigger that blocks over-selecting candidates past a position's seat limit. Double-voting is rejected at write time, not caught after the fact.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">✍️</div>
+          <h3>Nomination &rarr; Confirmation</h3>
+          <p>Anyone can nominate an RBYA member. The nominee has to actively confirm before appearing publicly, and the window closes 48 hours before Convention.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">💬</div>
+          <h3>Support &amp; Objections, Handled Differently</h3>
+          <p>Public comments of support show up on a candidate's page. Objections go straight to the committee to prep what's read aloud at Convention -- never shown online.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">⛪</div>
+          <h3>Church-Based Delegate Quota</h3>
+          <p>Churches self-register their delegate list at one delegate per ten youth. The committee verifies the list before anyone on it can log in to vote.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🔑</div>
+          <h3>Two Kinds of Login</h3>
+          <p>Delegates sign in passwordlessly by email once verified. The election committee gets a real password login, provisioned by hand -- no public sign-up.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">📊</div>
+          <h3>Results That Lead With Who Won</h3>
+          <p>A winners summary up top -- executive positions front and center, the larger general committee tucked into a collapsible section -- before the full per-candidate vote tables.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🗄️</div>
+          <h3>A Real Archive</h3>
+          <p>Past years' candidates and results stay browsable instead of disappearing the moment a new election opens.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🧑‍💼</div>
+          <h3>Committee Moderation Tools</h3>
+          <p>Ignore a withdrawn or duplicate nomination, request pastor vetting, upload a candidate's photo, and publish results -- all from one dashboard.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">☁️</div>
+          <h3>Built for Once-a-Year Traffic</h3>
+          <p>Deployed on Cloudflare Workers instead of a plan sized for year-round usage -- this app is quiet almost all year and busy for one month around Convention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How It Works</span>
+        <h2>The same process the organization already knows</h2>
+        <p>Nomination, confirmation, registration, voting, and results -- just enforced by the app instead of trusted to people remembering the rules correctly.</p>
+      </div>
+      <div class="flow">
+        <div class="flow-item">
+          <span class="flow-label">Nomination</span>
+          <div>
+            <h3>No login required to nominate or comment</h3>
+            <p>Anyone can nominate a candidate, leave a note of support, or file an objection -- no account needed for any of it.</p>
+            <ul>
+              <li>Nominee confirms by email before appearing publicly</li>
+              <li>Positive comments are shown; objections go to the committee only</li>
+            </ul>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-label">Delegates</span>
+          <div>
+            <h3>Register, get verified, then log in</h3>
+            <p>A church submits its delegate list against its youth-count quota. The committee verifies it before those delegates can sign in.</p>
+            <ul>
+              <li>Passwordless email magic link -- no password to forget</li>
+              <li>Absentee delegates can only vote for committee candidates, by deadline</li>
+            </ul>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-label">Voting</span>
+          <div>
+            <h3>One submission per position, enforced by the database</h3>
+            <p>A resubmission for a position a delegate already voted on is rejected outright -- the database constraint makes it impossible, not just discouraged.</p>
+          </div>
+        </div>
+        <div class="flow-item">
+          <span class="flow-label">Results</span>
+          <div>
+            <h3>&gt;50% wins the seat, or it stays open</h3>
+            <p>A candidate is elected with more than 50% of ballots cast for their position. If fewer candidates than seats clear a majority, those seats remain open rather than being backfilled.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="tech">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Tech</span>
+        <h2>Built with</h2>
+      </div>
+      <div class="stack-row">
+        <div class="stack-pill">
+          <div class="name">Next.js</div>
+          <div class="desc">TypeScript, App Router, Server Actions</div>
+        </div>
+        <div class="stack-pill">
+          <div class="name">Supabase</div>
+          <div class="desc">Postgres, Auth, Row Level Security, Storage</div>
+        </div>
+        <div class="stack-pill">
+          <div class="name">Cloudflare Workers</div>
+          <div class="desc">via vinext, on a custom domain</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-row">
+    <span>A project write-up -- the real app lives at <a href="https://rbya.cloud" style="color: var(--text-muted); text-decoration: underline;">rbya.cloud</a>.</span>
+    <div class="footer-links">
+      <a href="https://rbya.cloud" target="_blank" rel="noopener noreferrer">Open the App</a>
+      <a href="https://github.com/bstef/rbya-elections" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.rbya.org/" target="_blank" rel="noopener noreferrer">RBYA.org</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
