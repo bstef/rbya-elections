@@ -2,7 +2,7 @@
 
 import { useState, useTransition, type FormEvent } from "react";
 import { updateElection, updatePositionSeats } from "@/app/admin/elections/actions";
-import { Input, Label, Textarea } from "@/components/ui/Field";
+import { Input, Label } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { Banner } from "@/components/ui/Card";
 import { positionLabel } from "@/lib/constants";
@@ -54,7 +54,6 @@ export function EditElectionForm({
         voting_closes_at: new Date(String(formData.get("votingClosesAt"))).toISOString(),
         status,
         results_published: resultsPublished,
-        custom_announcement: String(formData.get("customAnnouncement")).trim() || null,
       });
       setMessage(res.message ?? null);
     });
@@ -173,22 +172,6 @@ export function EditElectionForm({
           />
           Publish results publicly
         </label>
-
-        <div>
-          <Label
-            htmlFor="customAnnouncement"
-            hint="shown on the homepage announcement bar, alongside the automatic nomination/voting/results notices -- leave blank for none"
-          >
-            Custom announcement
-          </Label>
-          <Textarea
-            id="customAnnouncement"
-            name="customAnnouncement"
-            rows={2}
-            defaultValue={election.custom_announcement ?? ""}
-            placeholder="e.g. Convention has been moved to October 3rd due to weather."
-          />
-        </div>
 
         <Button type="submit" disabled={isPending}>
           {isPending ? "Saving..." : "Save changes"}

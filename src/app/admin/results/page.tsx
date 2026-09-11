@@ -25,9 +25,10 @@ export default async function AdminResultsPage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Results</h1>
           <p className="mt-1 text-ink-muted">
-            A candidate is elected with &gt;50% of ballots cast for their
-            position, ranked within the seat count -- unfilled majorities
-            leave a seat vacant rather than backfilling with a plurality.
+            A candidate is elected with more than 50% of ballots cast for
+            their position. If fewer candidates clear a majority than there
+            are seats, those seats stay open instead of going to whoever got
+            the most votes.
           </p>
         </div>
         <PublishResultsButton electionId={election.id} published={election.results_published} />

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
+import { LogoutButton } from "@/components/admin/LogoutButton";
 
 const ADMIN_LINKS = [
   { href: "/admin/dashboard", label: "Dashboard" },
+  { href: "/admin/announcement", label: "Announcement" },
   { href: "/admin/elections", label: "Elections" },
   { href: "/admin/candidates", label: "Candidates" },
   { href: "/admin/comments", label: "Comments" },
@@ -32,7 +34,12 @@ export default async function AdminLayout({
 
   return (
     <div className="flex flex-col gap-6 sm:flex-row">
-      <AdminMobileNav links={ADMIN_LINKS} />
+      <div className="flex items-center gap-2 sm:hidden">
+        <div className="flex-1">
+          <AdminMobileNav links={ADMIN_LINKS} />
+        </div>
+        <LogoutButton className="border border-hairline" />
+      </div>
       <nav className="hidden shrink-0 sm:flex sm:w-48 sm:flex-col sm:gap-1">
         {ADMIN_LINKS.map((link) => (
           <Link
@@ -43,6 +50,8 @@ export default async function AdminLayout({
             {link.label}
           </Link>
         ))}
+        <div className="my-2 border-t border-hairline" />
+        <LogoutButton />
       </nav>
       <div className="min-w-0 flex-1">{children}</div>
     </div>

@@ -17,8 +17,9 @@ export default async function AdminElectionsPage() {
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Elections</h1>
         <p className="mt-1 text-ink-muted">
-          Only one election can be marked current at a time -- that&apos;s the
-          one every public page and RPC uses.
+          The election marked Current is the one the whole site shows --
+          the homepage, nominations, voting, and results all follow it.
+          Only one election can be current at a time.
         </p>
       </div>
 

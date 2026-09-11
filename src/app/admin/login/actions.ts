@@ -45,3 +45,9 @@ export async function adminLogin(
 
   redirect("/admin/dashboard");
 }
+
+export async function adminLogout(): Promise<void> {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/admin/login");
+}
