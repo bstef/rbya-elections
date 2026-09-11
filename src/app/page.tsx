@@ -135,6 +135,10 @@ export default async function HomePage() {
 function PhaseBanner({ election }: { election: Election }) {
   const notices: string[] = [];
 
+  if (election.custom_announcement) {
+    notices.push(election.custom_announcement);
+  }
+
   if (nominationsAreOpen(election)) {
     notices.push(
       `Nominations are open through ${formatDate(election.nomination_cutoff_at)}.`,

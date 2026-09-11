@@ -28,6 +28,7 @@ export interface Election {
   status: ElectionStatus;
   is_current: boolean;
   results_published: boolean;
+  custom_announcement: string | null;
   created_at: string;
 }
 

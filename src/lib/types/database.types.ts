@@ -389,6 +389,7 @@ export type Database = {
           absentee_ballot_deadline: string
           confirmation_cutoff_at: string
           created_at: string
+          custom_announcement: string | null
           election_day: string
           id: string
           is_current: boolean
@@ -404,6 +405,7 @@ export type Database = {
           absentee_ballot_deadline: string
           confirmation_cutoff_at: string
           created_at?: string
+          custom_announcement?: string | null
           election_day: string
           id?: string
           is_current?: boolean
@@ -419,6 +421,7 @@ export type Database = {
           absentee_ballot_deadline?: string
           confirmation_cutoff_at?: string
           created_at?: string
+          custom_announcement?: string | null
           election_day?: string
           id?: string
           is_current?: boolean
