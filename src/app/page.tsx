@@ -14,6 +14,15 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-10">
+      {election ? (
+        <PhaseBanner election={election} />
+      ) : (
+        <Banner tone="warning">
+          There is no active election configured right now. Please check
+          back later, or contact the election committee.
+        </Banner>
+      )}
+
       <section className="relative overflow-hidden rounded-2xl border border-hairline bg-surface px-6 py-12 sm:px-12 sm:py-16">
         <div
           aria-hidden="true"
@@ -83,17 +92,6 @@ export default async function HomePage() {
               How elections work
             </Link>
           </div>
-
-          <div className="mt-8">
-            {election ? (
-              <PhaseBanner election={election} />
-            ) : (
-              <Banner tone="warning">
-                There is no active election configured right now. Please
-                check back later, or contact the election committee.
-              </Banner>
-            )}
-          </div>
         </div>
       </section>
 
@@ -160,13 +158,18 @@ function PhaseBanner({ election }: { election: Election }) {
   }
 
   return (
-    <Banner tone="info">
+    <div className="rounded-xl bg-blue-950 px-5 py-4 dark:bg-blue-100 sm:px-6">
       <div className="space-y-1">
         {notices.map((notice) => (
-          <p key={notice}>{notice}</p>
+          <p
+            key={notice}
+            className="text-base font-bold tracking-tight text-white sm:text-lg dark:text-blue-950"
+          >
+            {notice}
+          </p>
         ))}
       </div>
-    </Banner>
+    </div>
   );
 }
 
