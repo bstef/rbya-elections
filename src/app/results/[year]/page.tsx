@@ -39,12 +39,16 @@ export default async function ArchivedResultsPage({
   return (
     <div className="space-y-6">
       {backLink}
-      <p className="text-sm text-ink-muted">
-        A candidate is elected with more than 50% of ballots cast for their
-        position. If fewer candidates than there are seats clear a majority,
-        those seats remain open.
-      </p>
       <ResultsDisplay election={election} />
+
+      <div className="rounded-lg border border-hairline bg-surface-muted p-4">
+        <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">Note</p>
+        <p className="mt-1 text-sm text-ink-muted">
+          A candidate is elected with more than 50% of ballots cast for their
+          position. If fewer candidates than there are seats clear a
+          majority, those seats remain open.
+        </p>
+      </div>
     </div>
   );
 }
