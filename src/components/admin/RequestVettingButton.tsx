@@ -11,7 +11,7 @@ export function RequestVettingButton({ candidateId }: { candidateId: string }) {
   return (
     <div>
       <Button
-        variant="secondary"
+        variant="accent"
         disabled={isPending}
         onClick={() =>
           startTransition(async () => {

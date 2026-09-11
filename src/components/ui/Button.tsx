@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 
-type Variant = "primary" | "secondary" | "danger" | "ghost";
+type Variant = "primary" | "secondary" | "danger" | "ghost" | "accent";
 
 const variantClasses: Record<Variant, string> = {
   // Navy, matching the header/logo brand color. Inverts to a light pill in
@@ -13,6 +13,11 @@ const variantClasses: Record<Variant, string> = {
   danger:
     "bg-red-600 text-white hover:bg-red-500 disabled:bg-red-200 dark:disabled:bg-red-900",
   ghost: "bg-transparent text-ink-muted hover:bg-surface-muted disabled:text-ink-faint",
+  // Gold, matching the Romanian flag's yellow stripe (also the header's
+  // accent gradient) -- bright enough to stay visible in both themes
+  // without a dark: override, unlike the navy primary variant.
+  accent:
+    "bg-amber-400 text-blue-950 hover:bg-amber-300 disabled:bg-amber-200 disabled:text-blue-950/50",
 };
 
 export const Button = forwardRef<
