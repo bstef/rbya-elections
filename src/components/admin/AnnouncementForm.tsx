@@ -22,7 +22,11 @@ export function AnnouncementForm({ election }: { election: Election }) {
         setMessage(res.message ?? "Something went wrong.");
         return;
       }
-      setMessage(customAnnouncement ? "Announcement updated." : "Announcement cleared.");
+      setMessage(
+        customAnnouncement
+          ? "Election announcement updated."
+          : "Election announcement cleared.",
+      );
     });
   }
 
