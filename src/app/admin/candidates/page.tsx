@@ -59,44 +59,18 @@ export default async function AdminCandidatesPage() {
 
           return (
             <Card key={candidate.id}>
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="flex min-w-0 flex-1 items-start gap-3">
-                  <PhotoUploadField
-                    token={candidate.confirm_token}
-                    name={candidate.name}
-                    initialImageUrl={candidate.image_url}
-                    avatarSize={40}
-                  />
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="font-semibold text-ink">{candidate.name}</p>
-                      <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
-                        {positionLabel(candidate.position)}
-                      </span>
-                      <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
-                        {CANDIDATE_STATE_LABELS[candidateState(candidate)]}
-                      </span>
-                    </div>
-                    <p className="mt-1 text-sm text-ink-muted">{candidate.church}</p>
-                    <p className="mt-2 text-sm break-words">
-                      <span className="text-ink-faint">Pastor vetting: </span>
-                      <span
-                        className={
-                          VETTING_BADGE_CLASSES[vetting]
-                            ? `rounded-full px-2 py-0.5 text-xs font-medium ${VETTING_BADGE_CLASSES[vetting]}`
-                            : "text-ink-faint"
-                        }
-                      >
-                        {vetting}
-                      </span>
-                      {candidate.pastor_contact && (
-                        <span className="ml-2 text-ink-faint">({candidate.pastor_contact})</span>
-                      )}
-                    </p>
-                  </div>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <p className="font-semibold text-ink">{candidate.name}</p>
+                  <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
+                    {positionLabel(candidate.position)}
+                  </span>
+                  <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
+                    {CANDIDATE_STATE_LABELS[candidateState(candidate)]}
+                  </span>
                 </div>
 
-                <div className="flex shrink-0 flex-col items-end gap-2">
+                <div className="flex shrink-0 flex-wrap items-start gap-2">
                   <IgnoreToggleButton candidateId={candidate.id} ignored={candidate.ignored} />
                   {canRequestVetting && <RequestVettingButton candidateId={candidate.id} />}
                   {!candidate.confirmed_at && (
@@ -104,6 +78,33 @@ export default async function AdminCandidatesPage() {
                       link={`${process.env.NEXT_PUBLIC_SITE_URL}/confirm/${candidate.confirm_token}`}
                     />
                   )}
+                </div>
+              </div>
+
+              <div className="mt-3 flex items-start gap-3">
+                <PhotoUploadField
+                  token={candidate.confirm_token}
+                  name={candidate.name}
+                  initialImageUrl={candidate.image_url}
+                  avatarSize={40}
+                />
+                <div className="min-w-0">
+                  <p className="text-sm text-ink-muted">{candidate.church}</p>
+                  <p className="mt-2 text-sm break-words">
+                    <span className="text-ink-faint">Pastor vetting: </span>
+                    <span
+                      className={
+                        VETTING_BADGE_CLASSES[vetting]
+                          ? `rounded-full px-2 py-0.5 text-xs font-medium ${VETTING_BADGE_CLASSES[vetting]}`
+                          : "text-ink-faint"
+                      }
+                    >
+                      {vetting}
+                    </span>
+                    {candidate.pastor_contact && (
+                      <span className="ml-2 text-ink-faint">({candidate.pastor_contact})</span>
+                    )}
+                  </p>
                 </div>
               </div>
             </Card>
