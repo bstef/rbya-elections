@@ -59,8 +59,8 @@ export default async function AdminCandidatesPage() {
 
           return (
             <Card key={candidate.id}>
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="flex min-w-0 flex-wrap items-center gap-2">
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <p className="font-semibold text-ink">{candidate.name}</p>
                   <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
                     {positionLabel(candidate.position)}
@@ -70,7 +70,7 @@ export default async function AdminCandidatesPage() {
                   </span>
                 </div>
 
-                <div className="flex shrink-0 flex-wrap items-start gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <IgnoreToggleButton candidateId={candidate.id} ignored={candidate.ignored} />
                   {canRequestVetting && <RequestVettingButton candidateId={candidate.id} />}
                   {!candidate.confirmed_at && (
