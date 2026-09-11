@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { nominationSchema } from "@/lib/validation/nomination";
 import { messageForRpcError, positionLabel } from "@/lib/constants";
 import { sendEmail } from "@/lib/email/send";
+import { renderEmailHtml } from "@/lib/email/template";
 
 export type NominationFormState = {
   status: "idle" | "error" | "success";
@@ -58,15 +59,23 @@ export async function submitNomination(
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const confirmLink = `${siteUrl}/confirm/${data?.confirm_token}`;
   await sendEmail({
     to: parsed.data.email,
     subject: "Confirm your RBYA committee nomination",
     text: `${parsed.data.submitterName} nominated you for ${positionLabel(parsed.data.position)} on the RBYA committee.
 
 Confirm or decline the nomination here:
-${siteUrl}/confirm/${data?.confirm_token}
+${confirmLink}
 
 If you weren't expecting this, you can safely ignore this email.`,
+    html: renderEmailHtml({
+      paragraphs: [
+        `<strong>${parsed.data.submitterName}</strong> nominated you for <strong>${positionLabel(parsed.data.position)}</strong> on the RBYA committee.`,
+        "Confirm or decline below. Once confirmed, you'll appear on the public candidates page.",
+      ],
+      cta: { href: confirmLink, label: "Respond to nomination" },
+    }),
   });
 
   return {

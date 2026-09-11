@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { messageForRpcError } from "@/lib/constants";
 import { sendEmail } from "@/lib/email/send";
+import { renderEmailHtml } from "@/lib/email/template";
 import type { DelegateType } from "@/lib/types/models";
 
 export type ActionState = {
@@ -29,13 +30,21 @@ export async function setDelegateVerified(
 
   if (verified && data) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+    const loginLink = `${siteUrl}/login`;
     await sendEmail({
       to: data.email,
       subject: "You're verified to vote in the RBYA committee election",
       text: `Hi ${data.name}, the election committee has verified you as a delegate for this year's RBYA committee election.
 
 You can log in and vote here once voting opens:
-${siteUrl}/login`,
+${loginLink}`,
+      html: renderEmailHtml({
+        paragraphs: [
+          `Hi ${data.name}, the election committee has verified you as a delegate for this year's RBYA committee election.`,
+          "You can log in and vote below once voting opens.",
+        ],
+        cta: { href: loginLink, label: "Log in to vote" },
+      }),
     });
   }
 

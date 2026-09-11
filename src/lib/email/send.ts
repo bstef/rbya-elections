@@ -17,6 +17,7 @@ export interface EmailMessage {
   to: string;
   subject: string;
   text: string;
+  html?: string;
 }
 
 let client: Resend | null = null;
@@ -41,6 +42,7 @@ export async function sendEmail(message: EmailMessage): Promise<void> {
       to: message.to,
       subject: message.subject,
       text: message.text,
+      ...(message.html ? { html: message.html } : {}),
     });
     if (error) {
       console.error("sendEmail failed:", error);

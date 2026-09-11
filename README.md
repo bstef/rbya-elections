@@ -99,8 +99,29 @@ Two separate mail paths:
   the "from" address between them, change `FROM_ADDRESS` in
   `src/lib/email/send.ts`. Each of these emails also has an on-screen
   link/copy-button fallback in the relevant UI in case a message bounces or
-  the key isn't
-  configured yet.
+  the key isn't configured yet.
+
+Each transactional email is sent as HTML with a plain-text fallback in the
+same message (`sendEmail`'s optional `html` field in `src/lib/email/send.ts`).
+The HTML is built by `renderEmailHtml()` in `src/lib/email/template.ts` — a
+single branded wrapper (logo, red/gold/blue accent stripe, an optional CTA
+button, and a footer signed by the election committee linking to rbya.org
+and rbya.org/elections) shared by all five call sites, so changing the look
+means editing that one file. Notes specific to email HTML:
+
+- Inline styles only — email clients ignore `<style>` blocks and external
+  stylesheets, and don't reliably load web fonts (hence the system font
+  stack).
+- The `<head>` sets `color-scheme`/`supported-color-schemes` to `light` so
+  dark-mode-aware clients (Gmail, Outlook, Apple Mail) don't reprocess the
+  (intentionally light) design — without this, the transparent-background
+  logo washes out against a client-applied dark tint. The logo also sits in
+  its own explicitly white `<table>`/`bgcolor` cell as a second layer of
+  protection for clients that ignore those meta tags.
+- The logo image is loaded from `${NEXT_PUBLIC_SITE_URL}/rbyaelectionstransparent.png`,
+  i.e. the deployed site, not a local file — email clients can't load
+  `localhost` images, so logo previews only render correctly when tested
+  against the deployed site (or with `NEXT_PUBLIC_SITE_URL` pointed at it).
 
 ## Deployment
 

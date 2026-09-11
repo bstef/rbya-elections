@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { messageForRpcError } from "@/lib/constants";
 import { sendEmail } from "@/lib/email/send";
+import { renderEmailHtml } from "@/lib/email/template";
 import type { Candidate } from "@/lib/types/models";
 
 export type ConfirmFormState = {
@@ -30,6 +31,7 @@ export async function confirmCandidate(
 
   const candidate = data as Candidate;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const profileLink = `${siteUrl}/candidates/${candidate.id}`;
   await sendEmail({
     to: candidate.submitter_email,
     subject: accept
@@ -37,8 +39,14 @@ export async function confirmCandidate(
       : `${candidate.name} declined their nomination`,
     text: accept
       ? `${candidate.name} confirmed they'll run and now appears on the public candidates page:
-${siteUrl}/candidates/${candidate.id}`
+${profileLink}`
       : `${candidate.name} declined the nomination you submitted, so they won't appear on the ballot.`,
+    html: renderEmailHtml({
+      paragraphs: accept
+        ? [`<strong>${candidate.name}</strong> confirmed they'll run and now appears on the public candidates page.`]
+        : [`<strong>${candidate.name}</strong> declined the nomination you submitted, so they won't appear on the ballot.`],
+      ...(accept ? { cta: { href: profileLink, label: "View candidate profile" } } : {}),
+    }),
   });
 
   return {

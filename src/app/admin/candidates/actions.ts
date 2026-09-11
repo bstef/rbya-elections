@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { messageForRpcError, positionLabel } from "@/lib/constants";
 import { sendEmail } from "@/lib/email/send";
+import { renderEmailHtml } from "@/lib/email/template";
 import type { Candidate } from "@/lib/types/models";
 
 export type ActionState = {
@@ -56,6 +57,13 @@ export async function requestPastorVetting(
 
 The election committee is asking you to confirm you can vouch for their character and standing in the church:
 ${link}`,
+      html: renderEmailHtml({
+        paragraphs: [
+          `<strong>${candidate.name}</strong> (${candidate.church}) has been nominated for <strong>${positionLabel(candidate.position)}</strong> on the RBYA committee, and named you as their pastor or youth leader.`,
+          "The election committee is asking you to confirm you can vouch for their character and standing in the church.",
+        ],
+        cta: { href: link, label: "Respond to vetting request" },
+      }),
     });
   }
 

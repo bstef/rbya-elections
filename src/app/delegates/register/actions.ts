@@ -7,6 +7,7 @@ import {
 } from "@/lib/validation/delegate";
 import { messageForRpcError } from "@/lib/constants";
 import { sendEmail } from "@/lib/email/send";
+import { renderEmailHtml } from "@/lib/email/template";
 
 export type DelegateRegistrationState = {
   status: "idle" | "error" | "success";
@@ -44,12 +45,19 @@ export async function registerDelegates(
   }
 
   const delegateCount = data?.length ?? parsed.data.delegates.length;
+  const churchLine = `${parsed.data.churchName}${parsed.data.cityState ? ` (${parsed.data.cityState})` : ""}`;
   await sendEmail({
     to: parsed.data.registeredByEmail,
     subject: `Delegate list received for ${parsed.data.churchName}`,
-    text: `Thanks, ${parsed.data.registeredByName}! We received ${delegateCount} delegate(s) for ${parsed.data.churchName}${parsed.data.cityState ? ` (${parsed.data.cityState})` : ""}.
+    text: `Thanks, ${parsed.data.registeredByName}! We received ${delegateCount} delegate(s) for ${churchLine}.
 
 The election committee will verify your list before Convention. Delegates can't log in to vote until then -- we recommend checking with the committee if you don't hear back before Convention.`,
+    html: renderEmailHtml({
+      paragraphs: [
+        `Thanks, ${parsed.data.registeredByName}! We received <strong>${delegateCount} delegate(s)</strong> for <strong>${churchLine}</strong>.`,
+        "The election committee will verify your list before Convention. Delegates can't log in to vote until then -- check with the committee if you don't hear back before Convention.",
+      ],
+    }),
   });
 
   return {
