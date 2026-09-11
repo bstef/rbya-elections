@@ -159,14 +159,14 @@ function PhaseBanner({ election }: { election: Election }) {
 
   return (
     <div className="rounded-xl bg-red-600 px-5 py-4 dark:bg-red-800 sm:px-6">
-      <div className="space-y-1">
-        {notices.map((notice) => (
-          <p
-            key={notice}
-            className="text-base font-bold tracking-tight text-white sm:text-lg"
-          >
-            {notice}
-          </p>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        {notices.map((notice, i) => (
+          <span key={notice} className="flex items-center gap-x-3">
+            {i > 0 && <span className="text-red-200" aria-hidden="true">|</span>}
+            <span className="text-base font-bold tracking-tight text-white sm:text-lg">
+              {notice}
+            </span>
+          </span>
         ))}
       </div>
     </div>
