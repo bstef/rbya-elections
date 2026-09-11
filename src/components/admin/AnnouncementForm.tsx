@@ -8,20 +8,27 @@ import { Banner } from "@/components/ui/Card";
 import type { Election } from "@/lib/types/models";
 
 export function AnnouncementForm({ election }: { election: Election }) {
+  const [text, setText] = useState(election.custom_announcement ?? "");
   const [message, setMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const customAnnouncement = String(formData.get("customAnnouncement")).trim() || null;
-
+  function save(value: string) {
     startTransition(async () => {
+      const customAnnouncement = value.trim() || null;
       const res = await updateElection(election.id, {
         custom_announcement: customAnnouncement,
       });
-      setMessage(res.message ?? null);
+      if (res.status === "error") {
+        setMessage(res.message ?? "Something went wrong.");
+        return;
+      }
+      setMessage(customAnnouncement ? "Announcement updated." : "Announcement cleared.");
     });
+  }
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    save(text);
   }
 
   return (
@@ -29,19 +36,38 @@ export function AnnouncementForm({ election }: { election: Election }) {
       {message && <Banner tone="info">{message}</Banner>}
 
       <div>
-        <Label htmlFor="customAnnouncement">Announcement</Label>
+        <Label
+          htmlFor="customAnnouncement"
+          hint="any web address you type or paste in becomes a clickable link"
+        >
+          Announcement
+        </Label>
         <Textarea
           id="customAnnouncement"
           name="customAnnouncement"
           rows={3}
-          defaultValue={election.custom_announcement ?? ""}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           placeholder="e.g. Convention has been moved to October 3rd due to weather."
         />
       </div>
 
-      <Button type="submit" disabled={isPending}>
-        {isPending ? "Saving..." : "Save announcement"}
-      </Button>
+      <div className="flex gap-2">
+        <Button type="submit" disabled={isPending}>
+          {isPending ? "Saving..." : "Save announcement"}
+        </Button>
+        <Button
+          type="button"
+          variant="secondary"
+          disabled={isPending || !text}
+          onClick={() => {
+            setText("");
+            save("");
+          }}
+        >
+          Clear announcement
+        </Button>
+      </div>
     </form>
   );
 }

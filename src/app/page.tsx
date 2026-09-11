@@ -7,6 +7,7 @@ import {
   confirmationIsOpen,
 } from "@/lib/election/eligibility";
 import { Banner } from "@/components/ui/Card";
+import { Linkify } from "@/components/ui/Linkify";
 import type { Election } from "@/lib/types/models";
 
 export default async function HomePage() {
@@ -168,7 +169,7 @@ function PhaseBanner({ election }: { election: Election }) {
           <span key={notice} className="flex items-center gap-x-3">
             {i > 0 && <span className="text-red-200" aria-hidden="true">|</span>}
             <span className="font-banner text-base font-bold tracking-tight text-white sm:text-lg">
-              {notice}
+              <Linkify text={notice} className="underline underline-offset-2 hover:text-red-100" />
             </span>
           </span>
         ))}
