@@ -13,6 +13,21 @@ export function positionLabel(value: string): string {
   return POSITIONS.find((p) => p.value === value)?.label ?? value;
 }
 
+// Every position except the multi-seat committee-member race is a single
+// executive officer seat -- used purely for badge styling (distinguishing
+// "President" from "Committee Member" at a glance), not access control.
+const EXECUTIVE_POSITIONS = new Set<PositionValue>([
+  "president",
+  "vice_president_east",
+  "vice_president_west",
+  "treasurer",
+  "controller",
+]);
+
+export function isExecutivePosition(value: string): boolean {
+  return EXECUTIVE_POSITIONS.has(value as PositionValue);
+}
+
 export const DELEGATE_TYPES = [
   { value: "present", label: "Present at Convention" },
   { value: "absentee", label: "Absentee ballot" },

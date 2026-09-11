@@ -1,7 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentElection } from "@/lib/election/current-election";
-import { positionLabel } from "@/lib/constants";
-import { candidateState, CANDIDATE_STATE_LABELS } from "@/lib/election/candidate-state";
+import { positionLabel, isExecutivePosition } from "@/lib/constants";
+import {
+  candidateState,
+  CANDIDATE_STATE_LABELS,
+  CANDIDATE_STATE_BADGE_CLASSES,
+} from "@/lib/election/candidate-state";
 import { IgnoreToggleButton } from "@/components/admin/IgnoreToggleButton";
 import { RequestVettingButton } from "@/components/admin/RequestVettingButton";
 import { CopyConfirmLinkButton } from "@/components/admin/CopyConfirmLinkButton";
@@ -21,6 +25,12 @@ const VETTING_BADGE_CLASSES: Record<string, string> = {
   "Concerns raised": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
   "Requested, awaiting response": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
 };
+
+// Executive (single-seat officer) vs. the general committee-member race --
+// distinct from the vetting/state badges above so at-a-glance scanning
+// doesn't conflate "which race" with "how's it going".
+const EXECUTIVE_BADGE_CLASSES = "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200";
+const GENERAL_BADGE_CLASSES = "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200";
 
 export default async function AdminCandidatesPage() {
   const election = await getCurrentElection();
@@ -56,17 +66,24 @@ export default async function AdminCandidatesPage() {
           const vetting = vettingLabel(candidate);
           const canRequestVetting =
             !!candidate.pastor_contact && candidate.pastor_approved === null;
+          const state = candidateState(candidate);
 
           return (
             <Card key={candidate.id}>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="font-semibold text-ink">{candidate.name}</p>
-                  <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                      isExecutivePosition(candidate.position) ? EXECUTIVE_BADGE_CLASSES : GENERAL_BADGE_CLASSES
+                    }`}
+                  >
                     {positionLabel(candidate.position)}
                   </span>
-                  <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-muted">
-                    {CANDIDATE_STATE_LABELS[candidateState(candidate)]}
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${CANDIDATE_STATE_BADGE_CLASSES[state]}`}
+                  >
+                    {CANDIDATE_STATE_LABELS[state]}
                   </span>
                 </div>
 

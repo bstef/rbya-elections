@@ -15,7 +15,7 @@ export function IgnoreToggleButton({
 
   return (
     <Button
-      variant={ignored ? "secondary" : "danger"}
+      variant={ignored ? "secondary" : "warning"}
       disabled={isPending}
       onClick={() =>
         startTransition(async () => {

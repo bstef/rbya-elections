@@ -1,6 +1,6 @@
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 
-type Variant = "primary" | "secondary" | "danger" | "ghost" | "accent";
+type Variant = "primary" | "secondary" | "danger" | "ghost" | "accent" | "warning";
 
 const variantClasses: Record<Variant, string> = {
   // Navy, matching the header/logo brand color. Inverts to a light pill in
@@ -18,6 +18,11 @@ const variantClasses: Record<Variant, string> = {
   // without a dark: override, unlike the navy primary variant.
   accent:
     "bg-amber-400 text-blue-950 hover:bg-amber-300 disabled:bg-amber-200 disabled:text-blue-950/50",
+  // Orange, not red -- for a destructive-ish action (Ignore) that needs to
+  // read as "caution" without being mistaken for the red used elsewhere to
+  // mean "declined by the nominee".
+  warning:
+    "bg-orange-600 text-white hover:bg-orange-500 disabled:bg-orange-200 dark:disabled:bg-orange-900",
 };
 
 export const Button = forwardRef<
