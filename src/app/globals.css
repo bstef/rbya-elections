@@ -45,7 +45,7 @@
   --color-ink-muted: var(--color-ink-muted);
   --color-ink-faint: var(--color-ink-faint);
   --color-hairline: var(--color-hairline);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-noto-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-fraunces);
 }

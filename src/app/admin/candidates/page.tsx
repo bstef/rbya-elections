@@ -42,7 +42,7 @@ export default async function AdminCandidatesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Candidates</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Candidates</h1>
         <p className="mt-1 text-ink-muted">
           Ignoring a candidate removes them from the public list, the ballot,
           and results -- use it for withdrawals or duplicate/invalid

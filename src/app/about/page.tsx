@@ -2,7 +2,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">How RBYA Elections Work</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">How RBYA Elections Work</h1>
         <p className="mt-1 text-ink-muted">
           A summary of the process, for transparency. This app enforces these
           rules in its logic, not just in this page&apos;s copy.

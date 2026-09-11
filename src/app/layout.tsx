@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Noto_Sans, Geist_Mono, Fraunces } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const notoSans = Noto_Sans({
+  variable: "--font-noto-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -45,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${notoSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

@@ -30,7 +30,7 @@ export default async function PastorVettingPage({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Pastor Vetting Request</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Pastor Vetting Request</h1>
         <p className="mt-1 text-ink-muted">
           {candidate.submitter_name} nominated{" "}
           <strong>{candidate.name}</strong> for{" "}

@@ -15,7 +15,7 @@ export default async function AdminElectionsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Elections</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Elections</h1>
         <p className="mt-1 text-ink-muted">
           Only one election can be marked current at a time -- that&apos;s the
           one every public page and RPC uses.

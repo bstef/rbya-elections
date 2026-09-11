@@ -13,7 +13,7 @@ export default async function ResultsPage() {
   if (!election.results_published) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Results</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Results</h1>
         <Banner tone="info">
           Results for the {election.year} election have not been published yet.
         </Banner>

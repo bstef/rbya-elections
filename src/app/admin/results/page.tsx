@@ -23,7 +23,7 @@ export default async function AdminResultsPage() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-ink font-display">{election.year} Results</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Results</h1>
           <p className="mt-1 text-ink-muted">
             A candidate is elected with &gt;50% of ballots cast for their
             position, ranked within the seat count -- unfilled majorities

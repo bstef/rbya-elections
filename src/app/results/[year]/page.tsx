@@ -28,7 +28,7 @@ export default async function ArchivedResultsPage({
     return (
       <div className="space-y-4">
         {backLink}
-        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Results</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Results</h1>
         <Banner tone="info">
           Results for the {election.year} election have not been published.
         </Banner>

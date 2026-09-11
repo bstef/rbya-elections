@@ -42,7 +42,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Dashboard</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Dashboard</h1>
         <p className="mt-1 text-ink-muted">Status: {election.status.replace(/_/g, " ")}</p>
       </div>
 

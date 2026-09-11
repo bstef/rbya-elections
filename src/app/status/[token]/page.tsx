@@ -36,7 +36,7 @@ export default async function CandidateStatusPage({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Your Candidacy Status</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Your Candidacy Status</h1>
         <p className="mt-1 text-ink-muted">
           {status.name} &middot; {positionLabel(status.position)}
         </p>

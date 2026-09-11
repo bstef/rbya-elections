@@ -40,7 +40,7 @@ export default async function AdminDelegatesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">{election.year} Delegates</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{election.year} Delegates</h1>
         <p className="mt-1 text-ink-muted">
           Only verified delegates can log in and vote. Verify a church&apos;s
           submission after confirming it with them.

@@ -32,7 +32,7 @@ export default async function ConfirmPage({
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Confirm Your Nomination</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Confirm Your Nomination</h1>
         <p className="mt-1 text-ink-muted">
           {candidate.submitter_name} nominated you for{" "}
           <strong>{positionLabel(candidate.position)}</strong>.

@@ -8,7 +8,7 @@ export default async function ArchivePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Past Elections</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Past Elections</h1>
         <p className="mt-1 text-ink-muted">
           Every RBYA committee election held through this site, with its
           candidates and results.

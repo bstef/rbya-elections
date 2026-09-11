@@ -33,7 +33,7 @@ export default async function ArchivedCandidatesPage({
             &larr; All elections
           </Link>
         </p>
-        <h1 className="mt-1 text-2xl font-bold text-ink font-display">
+        <h1 className="mt-1 text-2xl font-bold tracking-tight text-ink font-sans">
           {election.year} Candidates
         </h1>
         <p className="mt-1 text-ink-muted">

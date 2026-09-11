@@ -39,7 +39,7 @@ export default async function CandidateDetailPage({
           <p className="text-sm font-medium text-ink-faint">
             {positionLabel(typedCandidate.position)}
           </p>
-          <h1 className="text-2xl font-bold text-ink font-display">{typedCandidate.name}</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">{typedCandidate.name}</h1>
           <p className="mt-1 text-ink-muted">
             {typedCandidate.church} &middot; {typedCandidate.location}
           </p>

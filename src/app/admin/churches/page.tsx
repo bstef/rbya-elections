@@ -25,7 +25,7 @@ export default async function AdminChurchesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Churches</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Churches</h1>
         <p className="mt-1 text-ink-muted">
           Youth counts drive each church&apos;s delegate quota (1 per 10 youth,
           rounded up) for the current election.

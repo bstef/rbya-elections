@@ -4,7 +4,7 @@ export default function DelegateRegisterPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ink font-display">Register Your Delegates</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink font-sans">Register Your Delegates</h1>
         <p className="mt-1 text-ink-muted">
           Each church may register one delegate for every ten youth (rounding
           up for the remainder). Submissions are reviewed by the election
